@@ -21,7 +21,7 @@ GitHub repository :  https://github.com/jasonkim7288/rails_tutor_booking<br /><b
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Purpose
-
+Most of aspiring developers have very little chance to present, lecture, or discuss on their own projects to others. Dev Tutor Booking app helps developers organise online or offline meetings with small numbers of students so that they can improve their development skills by communicating and helping each other.
 
 [Go back](#table-of-contents)<br /><br /><br />
 
