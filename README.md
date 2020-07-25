@@ -1,24 +1,71 @@
-# README
+<h1 align="center"> Tutor booking
+</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Table of Contents
 
-Things you may want to cover:
+* [Links](#Links)
+* [Purpose](#Purpose)
+* [Functionality and Features](#Functionality-and-Features)
+* [Sitemap](#Sitemap)
+* [Screenshots](#Screenshots)
+* [Target audience](#Target-audience)
+* [Tech stack](#Tech-stack)
+<br /><br /><br />
 
-* Ruby version
+# Links
 
-* System dependencies
+Published portfolio website :
 
-* Configuration
+GitHub repository :  https://github.com/jasonkim7288/rails_tutor_booking<br /><br />
 
-* Database creation
+[Go back](#table-of-contents)<br /><br /><br />
 
-* Database initialization
+# Purpose
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+[Go back](#table-of-contents)<br /><br /><br />
 
-* Deployment instructions
+# Functionality and Features
 
-* ...
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# Sitemap
+
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# Screenshots
+### Planning layouts
+for phone (iPhone 8 plus)
+
+![Wireframe for iPhon 8 plus]()
+
+for tablet (iPad pro)
+
+![Wireframe for iPad pro]()
+
+for desktop
+
+![Wireframe for]()
+
+### Screenshots
+
+#### Mobile screenshots (iPhone8 plus)
+
+#### Tablet screenshots (iPad pro)
+
+#### Desktop screenshots
+
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# Target audience
+
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# Tech stack
+
+
+[Go back](#table-of-contents)<br /><br /><br />
