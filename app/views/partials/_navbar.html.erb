@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="<%= root_path %>">Dev Tutor Booking</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <%# if the window has a mobile or tablet size, all the menu items will be under the hamburger menu icon %>
+          <div class="d-md-none">
+            <li class="nav-item">
+              <%= current_user.email %>
+            </li>
+            <%= render 'partials/navbar_dropdown' %>
+          </div>
+
+          <%# if the window has a desktop size, all the menu items will be under the user name %>
+          <div class="d-none d-md-block nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMainMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= image_tag "https://avatar.oxro.io/avatar.svg?name=#{current_user.profile.full_name}&length=2", class:"initial-avatar"%>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMainMenu">
+              <%= render 'partials/navbar_dropdown' %>
+            </div>
+          </div>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

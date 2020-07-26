@@ -1,5 +1,6 @@
 class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_name
 
   # GET /tutor_sessions
   # GET /tutor_sessions.json
@@ -38,16 +39,11 @@ class TutorSessionsController < ApplicationController
   end
 
   # PATCH/PUT /tutor_sessions/1
-  # PATCH/PUT /tutor_sessions/1.json
   def update
-    respond_to do |format|
-      if @tutor_session.update(tutor_session_params)
-        format.html { redirect_to @tutor_session, notice: 'Tutor session was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tutor_session }
-      else
-        format.html { render :edit }
-        format.json { render json: @tutor_session.errors, status: :unprocessable_entity }
-      end
+    if @tutor_session.update(tutor_session_params)
+      redirect_to @tutor_session, notice: 'Tutor session was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -70,5 +66,9 @@ class TutorSessionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def tutor_session_params
       params.require(:tutor_session).permit(:title, :description, :place, :category, :start_datetime, :end_datetime, :conf_url, :address, :latitude, :longitude, :decimal, :max_students_num, :user_id)
+    end
+
+    # if a user didn't update his or her name, use email for user name. If a user updated, use full name for user name
+    def set_user_name
     end
 end

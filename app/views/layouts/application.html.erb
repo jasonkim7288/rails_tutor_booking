@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Tutor Booking</title>
+    <title>Dev Tutor Booking</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -21,6 +21,8 @@
   </head>
 
   <body>
+    <%= render 'partials/navbar' %>
+    <%= render 'partials/flash' %>
     <%= yield %>
   </body>
 </html>

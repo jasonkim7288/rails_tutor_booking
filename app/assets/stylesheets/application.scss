@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// alert message slide up/down effect
+@keyframes alert-keyframes {
+  0% {top: -100px;}
+  20% {top: -10px;}
+  80% {top: -10px;}
+  100% {top: -100px;}
+}
+
+.alert {
+  position: fixed;
+  top: -100px;
+  width: 100%;
+  opacity: 0.9;
+  animation: alert-keyframes 5s;
+  border-radius: 20px;
+}
+
+.navbar {
+  a {
+    &:hover {
+      font-weight: bolder !important;
+    }
+  }
+
+  .dropdown-menu-right {
+    min-width: 300px !important;
+  }
+
+  .dropdown-submenu {
+    position: relative;
+    .dropdown-menu {
+      top: 100%;
+      right: 100%;
+      margin-top: -1px;
+    }
+  }
+}
+
+#navbarDropdownMainMenu {
+  padding: 0 !important;
+  .initial-avatar {
+    border-radius: 50%;
+    width: 30px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
