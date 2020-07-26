@@ -23,6 +23,12 @@
   <body>
     <%= render 'partials/navbar' %>
     <%= render 'partials/flash' %>
-    <%= yield %>
+    <%# all the devise view has the same wrapper, so make it DRY %>
+    <% if controller_name == "confirmations" || controller_name == "passwords" || controller_name == "registrations" ||
+        controller_name == "sessions" || controller_name == "unlocks" %>
+      <%= render 'partials/devise_wrapper' %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

@@ -1,6 +1,6 @@
 class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy]
-  before_action :set_user_name
+
 
   # GET /tutor_sessions
   # GET /tutor_sessions.json
@@ -66,9 +66,5 @@ class TutorSessionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def tutor_session_params
       params.require(:tutor_session).permit(:title, :description, :place, :category, :start_datetime, :end_datetime, :conf_url, :address, :latitude, :longitude, :decimal, :max_students_num, :user_id)
-    end
-
-    # if a user didn't update his or her name, use email for user name. If a user updated, use full name for user name
-    def set_user_name
     end
 end

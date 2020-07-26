@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light" style="background-color: #e1f2fd;">
   <div class="container">
     <a class="navbar-brand" href="<%= root_path %>">Dev Tutor Booking</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,9 +10,6 @@
         <% if user_signed_in? %>
           <%# if the window has a mobile or tablet size, all the menu items will be under the hamburger menu icon %>
           <div class="d-md-none">
-            <li class="nav-item">
-              <%= current_user.email %>
-            </li>
             <%= render 'partials/navbar_dropdown' %>
           </div>
 
