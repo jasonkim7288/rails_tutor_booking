@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  place: MyString
+  category: MyString
+  start_datetime: 2020-07-26 12:08:18
+  end_datetime: 2020-07-26 12:08:18
+  conf_url: MyString
+  address: MyText
+  latitude: 9.99
+  longitude: MyString
+  decimal: MyString
+  max_students_num: 1
+  user: one
+
+two:
+  title: MyString
+  description: MyText
+  place: MyString
+  category: MyString
+  start_datetime: 2020-07-26 12:08:18
+  end_datetime: 2020-07-26 12:08:18
+  conf_url: MyString
+  address: MyText
+  latitude: 9.99
+  longitude: MyString
+  decimal: MyString
+  max_students_num: 1
+  user: two
