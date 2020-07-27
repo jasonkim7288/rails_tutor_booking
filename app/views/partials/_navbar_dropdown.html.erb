@@ -1,3 +1,5 @@
+
+
 <li class="dropdown-item">
   <%= link_to 'Create a new session', '#', class: "nav-link" %>
 </li>
@@ -21,6 +23,9 @@
   <ul class="dropdown-menu">
     <li class="dropdown-item">
       <%= link_to 'Edit profile', edit_profile_path(current_user.profile), class: "nav-link" %>
+    </li>
+    <li class="dropdown-item">
+      <%= link_to 'Change password', edit_user_registration_path, class: "nav-link" %>
     </li>
     <li class="dropdown-item">
       <%= link_to 'Notifications', '#', class: "nav-link" %>

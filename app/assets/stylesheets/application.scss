@@ -47,6 +47,7 @@
     .dropdown-menu {
       top: 100%;
       right: 100%;
+      width: 200px;
       margin-top: -1px;
     }
   }
@@ -56,9 +57,14 @@
   padding: 0 !important;
   .initial-avatar {
     border-radius: 50%;
-    width: 30px;
+    width: 35px;
     &:hover {
       opacity: 0.8;
     }
   }
+}
+
+.main-img-1 {
+  width: 100%;
+  position: absolute;
 }

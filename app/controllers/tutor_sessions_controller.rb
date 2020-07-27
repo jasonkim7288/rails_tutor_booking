@@ -1,15 +1,17 @@
 class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy]
 
-
   # GET /tutor_sessions
-  # GET /tutor_sessions.json
   def index
     @tutor_sessions = TutorSession.all
   end
 
+  # GET /tutor_sessions/search
+  def search
+    
+  end
+
   # GET /tutor_sessions/1
-  # GET /tutor_sessions/1.json
   def show
   end
 
@@ -23,18 +25,13 @@ class TutorSessionsController < ApplicationController
   end
 
   # POST /tutor_sessions
-  # POST /tutor_sessions.json
   def create
     @tutor_session = TutorSession.new(tutor_session_params)
 
-    respond_to do |format|
-      if @tutor_session.save
-        format.html { redirect_to @tutor_session, notice: 'Tutor session was successfully created.' }
-        format.json { render :show, status: :created, location: @tutor_session }
-      else
-        format.html { render :new }
-        format.json { render json: @tutor_session.errors, status: :unprocessable_entity }
-      end
+    if @tutor_session.save
+      redirect_to @tutor_session, notice: 'Tutor session was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -48,13 +45,9 @@ class TutorSessionsController < ApplicationController
   end
 
   # DELETE /tutor_sessions/1
-  # DELETE /tutor_sessions/1.json
   def destroy
     @tutor_session.destroy
-    respond_to do |format|
-      format.html { redirect_to tutor_sessions_url, notice: 'Tutor session was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to tutor_sessions_url, notice: 'Tutor session was successfully destroyed.'
   end
 
   private

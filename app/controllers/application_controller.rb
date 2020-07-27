@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
     def set_user_name
       if user_signed_in?
         @user_name = current_user.profile.full_name
+        @avatar_image_url = "https://avatar.oxro.io/avatar.svg?name=#{@user_name}&length=2"
       end
     end
 end
