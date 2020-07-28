@@ -29,6 +29,7 @@
   opacity: 0.9;
   animation: alert-keyframes 5s;
   border-radius: 20px;
+  z-index: 10;
 }
 
 .navbar-collapse {
@@ -64,7 +65,28 @@
   }
 }
 
-.main-img-1 {
-  width: 100%;
-  position: absolute;
+.jumbotron_wrapper {
+  position: relative;
+  .jumbotron {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: url("<%= image_path('home_background') %>");
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.8
+    }
+
+    h1 {
+      position: relative;
+      text-shadow: 0 0  10px white;
+    }
+    form {
+      position: relative;
+    }
+  }
 }

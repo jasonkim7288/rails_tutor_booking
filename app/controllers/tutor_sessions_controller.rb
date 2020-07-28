@@ -4,11 +4,12 @@ class TutorSessionsController < ApplicationController
   # GET /tutor_sessions
   def index
     @tutor_sessions = TutorSession.all
+    p TutorSession.places.map {|key, value| [key, value]}
   end
 
   # GET /tutor_sessions/search
   def search
-    
+
   end
 
   # GET /tutor_sessions/1

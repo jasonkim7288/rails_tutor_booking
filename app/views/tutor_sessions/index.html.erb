@@ -1,16 +1,18 @@
-<div class="row m-0">
-  <div class="col-12 col-md-6 p-0">
-    <%= image_tag 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1404&q=80', class: "main-img-1" %>
-  </div>
+<div class="jumbotron_wrapper">
+  <div class="jumbotron">
+    <h1 class="text-center">Helping each other will make</h1>
+    <h1 class="text-center">you great developers</h1>
 
-  <div class="d-none d-md-block col-md-6 p-0">
-    <%= image_tag 'https://images.unsplash.com/photo-1588702547919-26089e690ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80', class: "main-img-1" %>
-  </div>
 
+    <%= form_with url: search_tutor_session_path, local: "true", class:"form-inline my-4 " do |form| %>
+      <%= select_tag :place, TutorSession.places.map {|key, value| [key, value]}, class: "form-control" %>
+      <input class="form-control mr-sm-2" type="search" name="name" placeholder="Add category" aria-label="Add">
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+    <% end %>
+  </div>
 </div>
 
 
-<h1>Tutor Sessions</h1>
 
 <table>
   <thead>
