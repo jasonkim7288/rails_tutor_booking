@@ -75,18 +75,30 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background-image: url("<%= image_path('home_background') %>");
+      background-image: url("<%= image_path('3') %>");
       background-size: cover;
       background-repeat: no-repeat;
       opacity: 0.8
     }
 
     h1 {
+      font-size: 1.8rem;
       position: relative;
       text-shadow: 0 0  10px white;
     }
     form {
       position: relative;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .jumbotron_wrapper .jumbotron {
+    &::before {
+      background-image: url("<%= image_path('home_background') %>");
+    }
+    h1 {
+      font-size: 3rem;
     }
   }
 }
