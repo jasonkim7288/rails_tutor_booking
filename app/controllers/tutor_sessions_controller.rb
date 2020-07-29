@@ -19,14 +19,6 @@ class TutorSessionsController < ApplicationController
   # GET /tutor_sessions/new
   def new
     @tutor_session = TutorSession.new
-    # hide components by adding bootstrap class "d-none" depending on the place
-    if @tutor_session.place == "offline"
-      @hide_when_offline = "d-none"
-      @hide_when_online = ""
-    else
-      @hide_when_offline = ""
-      @hide_when_online = "d-none"
-    end
   end
 
   # GET /tutor_sessions/1/edit

@@ -1,102 +1,106 @@
-<%= form_with model: tutor_session, local: true, class: "row", data: {controller: "tutor-sessions", action: "google-maps-callback@window->tutor-sessions#initializeMap"} do |form| %>
-  <% if tutor_session.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(tutor_session.errors.count, "error") %> prohibited this tutor session from being saved:</h2>
+<div data-controller="tutor-sessions" data-action= "google-maps-callback@window->tutor-sessions#initializeMap" data-target="tutor-sessions.wrappedWithContainer">
+  <%= form_with model: tutor_session, local: true, class: "row mx-0" do |form| %>
+    <% if tutor_session.errors.any? %>
+      <div id="error_explanation">
+        <h4><%= pluralize(tutor_session.errors.count, "error") %> prohibited this tutor session from being saved:</h4>
 
-      <ul>
-        <% tutor_session.errors.full_messages.each do |message| %>
-          <li class="text-danger"><%= message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% tutor_session.errors.full_messages.each do |message| %>
+            <li class="text-danger"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="col-12 col-md-7">
+      <div class="form-group field">
+        <%= form.label :title %>
+        <%= form.text_field :title, autofocus: true, class: "form-control" %>
+      </div>
+
+      <div class="form-group field">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="row">
+        <div class="form-group field col-12 col-md-6">
+          <%= form.label :place %>
+          <%# form-control does NOT work for form.select %>
+          <%#= form.select :place, TutorSession.places.map {|key, value| [key, value]}, class: "form-control" %>
+          <select name="tutor_session[place]" id="tutor_session_place" class="form-control" data-action="change->tutor-sessions#handle_change_place" data-target="tutor-sessions.place">
+            <% TutorSession.places.each do |key, value| %>
+              <option value="<%= key %>"><%= value %> </option>
+            <% end %>
+          </select>
+        </div>
+
+        <div class="form-group field col-12 col-md-6">
+          <%= form.label :category %>
+          <%# form-control does NOT work for form.select %>
+          <%#= form.select :category, TutorSession.categories.map {|key, value| [value, key]}, class: "form-control" %>
+          <select name="tutor_session[category]" id="tutor_session_category" class="form-control">
+            <% TutorSession.categories.each do |key, value| %>
+              <option value="<%= key %>"><%= value %> </option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="form-group field col-12 col-md-6">
+              <%= form.label :start_datetime, "Start date/time" %>
+              <div class="input-group date" id="datetimepicker-start" data-target-input="nearest">
+                  <%= form.text_field :start_datetime,
+                      value: form.object.start_datetime ? form.object.start_datetime.strftime('%d/%m/%Y %l:%M %p') : DateTime.now.next_day(1).strftime('%d/%m/%Y 9:00 AM'),
+                      class: "form-control datetimepicker-input",
+                      data: { target: "#datetimepicker-start" } %>
+                  <div class="input-group-append" data-target="#datetimepicker-start" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group field col-12 col-md-6">
+              <%= form.label :end_datetime, "End date/time" %>
+              <div class="input-group date" id="datetimepicker-end" data-target-input="nearest">
+                  <%= form.text_field :end_datetime,
+                      value: form.object.end_datetime ? form.object.end_datetime.strftime('%d/%m/%Y %l:%M %p') : DateTime.now.next_day(1).strftime('%d/%m/%Y 5:00 PM'),
+                      class: "form-control datetimepicker-input",
+                      data: { target: "#datetimepicker-end" } %>
+                  <div class="input-group-append" data-target="#datetimepicker-end" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="form-group field">
+        <%= form.label :max_students_num %>
+        <%= form.number_field :max_students_num, class: "form-control" %>
+      </div>
+
+      <div class="form-group field" data-target="tutor-sessions.confUrlWrapper">
+        <%= form.label :conf_url, "Video conference URL" %>
+        <%= form.text_field :conf_url, class: "form-control" %>
+      </div>
+
+      <div class="form-group field" data-target="tutor-sessions.addressWrapper">
+        <%= form.label :address %>
+        <%= form.text_field :address, class: "form-control", data: { target: "tutor-sessions.address", action: "keydown->tutor-sessions#preventSubmit" } %>
+      </div>
+
+      <%= form.hidden_field :latitude, data: { target: "tutor-sessions.latitude" } %>
+      <%= form.hidden_field :longitude, data: { target: "tutor-sessions.longitude" } %>
+    </div>
+
+    <div class="col-12 col-md-5" data-target="tutor-sessions.mapWrapper">
+      <%= content_tag :div, nil, data: { target: "tutor-sessions.map" }, class: "map mb-4 rounded shadow-sm" %>
+    </div>
+
+    <div class="col-12 col-md-7">
+      <div class="form-group actions">
+        <%= form.submit class: "btn btn-primary btn-block" %>
+      </div>
     </div>
   <% end %>
-
-  <div class="col-12 col-md-7">
-    <div class="form-group field">
-      <%= form.label :title %>
-      <%= form.text_field :title, autofocus: true, class: "form-control" %>
-    </div>
-
-    <div class="form-group field">
-      <%= form.label :description %>
-      <%= form.text_area :description, class: "form-control" %>
-    </div>
-
-    <div class="row">
-      <div class="form-group field col-12 col-md-6">
-        <%= form.label :place %>
-        <%# form-control does NOT work for form.select %>
-        <%#= form.select :place, TutorSession.places.map {|key, value| [key, value]}, class: "form-control" %>
-        <select name="tutor_session[place]" id="tutor_session_place" class="form-control" data-action="change->tutor-sessions#handle_change_place" data-target="tutor-sessions.place">
-          <% TutorSession.places.each do |key, value| %>
-            <option value="<%= key %>"><%= value %> </option>
-          <% end %>
-        </select>
-      </div>
-
-      <div class="form-group field col-12 col-md-6">
-        <%= form.label :category %>
-        <%# form-control does NOT work for form.select %>
-        <%#= form.select :category, TutorSession.categories.map {|key, value| [value, key]}, class: "form-control" %>
-        <select name="tutor_session[category]" id="tutor_session_category" class="form-control">
-          <% TutorSession.categories.each do |key, value| %>
-            <option value="<%= key %>"><%= value %> </option>
-          <% end %>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group field col-12 col-md-6">
-            <%= form.label :start_datetime, "Start date/time" %>
-            <div class="input-group date" id="datetimepicker-start" data-target-input="nearest">
-                <%= form.text_field :start_datetime,
-                    value: form.object.start_datetime ? form.object.start_datetime.strftime('%d/%m/%Y %l:%M %p') : DateTime.now.next_day(1).strftime('%d/%m/%Y 9:00 AM'),
-                    class: "form-control datetimepicker-input",
-                    data: { target: "#datetimepicker-start" } %>
-                <div class="input-group-append" data-target="#datetimepicker-start" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group field col-12 col-md-6">
-            <%= form.label :end_datetime, "End date/time" %>
-            <div class="input-group date" id="datetimepicker-end" data-target-input="nearest">
-                <%= form.text_field :end_datetime,
-                    value: form.object.end_datetime ? form.object.end_datetime.strftime('%d/%m/%Y %l:%M %p') : DateTime.now.next_day(1).strftime('%d/%m/%Y 5:00 PM'),
-                    class: "form-control datetimepicker-input",
-                    data: { target: "#datetimepicker-end" } %>
-                <div class="input-group-append" data-target="#datetimepicker-end" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group field <%= @hide_when_offline %>" data-target="tutor-sessions.confurlWrapper">
-      <%= form.label :conf_url, "Video conference URL" %>
-      <%= form.text_field :conf_url, class: "form-control" %>
-    </div>
-
-    <div class="form-group field <%= @hide_when_online %>" data-target="tutor-sessions.addressWrapper">
-      <%= form.label :address %>
-      <%= form.text_field :address, class: "form-control", data: { target: "tutor-sessions.address", action: "keydown->tutor-sessions#preventSubmit" } %>
-    </div>
-
-    <%= form.hidden_field :latitude, data: { target: "tutor-sessions.latitude" } %>
-    <%= form.hidden_field :longitude, data: { target: "tutor-sessions.longitude" } %>
-
-    <div class="form-group field">
-      <%= form.label :max_students_num %>
-      <%= form.number_field :max_students_num, class: "form-control" %>
-    </div>
-
-    <div class="form-group actions">
-      <%= form.submit class: "btn btn-primary btn-block" %>
-    </div>
-  </div>
-
-  <div class="col-12 col-md-5">
-    <%= content_tag :div, nil, data: { target: "tutor-sessions.map" }, class: "map mb-4 rounded shadow-sm" %>
-  </div>
-<% end %>
+</div>
