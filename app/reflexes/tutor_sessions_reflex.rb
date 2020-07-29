@@ -1,0 +1,2 @@
+class TutorSessionsReflex < ApplicationReflex
+end

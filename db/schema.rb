@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_120845) do
+ActiveRecord::Schema.define(version: 2020_07_29_021237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,19 +30,18 @@ ActiveRecord::Schema.define(version: 2020_07_26_120845) do
   create_table "tutor_sessions", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.string "place"
-    t.string "category"
+    t.string "place", default: "offline"
+    t.string "category", default: "web_app"
     t.datetime "start_datetime"
     t.datetime "end_datetime"
     t.string "conf_url"
-    t.text "address"
     t.decimal "latitude"
-    t.string "longitude"
-    t.string "decimal"
     t.integer "max_students_num"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "longitude"
+    t.string "address"
     t.index ["user_id"], name: "index_tutor_sessions_on_user_id"
   end
 

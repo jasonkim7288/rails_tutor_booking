@@ -18,6 +18,13 @@ require("channels")
 
 import "controllers"
 
+
+global.moment = require('moment');
+require('tempusdominus-bootstrap-4');
+require('moment-timezone');
+require('fullcalendar');
+
+
 $(document).on('turbolinks:load', function() {
   // navbar submenu display
   $('.dropdown-submenu a.nav-item').on("click", function(e){
@@ -26,4 +33,15 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
   });
 
+  // datetime picker display
+  $('#datetimepicker-start').datetimepicker({
+    locale: 'en-au',
+    format: 'DD/MM/YYYY h:mm A',
+    stepping: 15
+  });
+  $('#datetimepicker-end').datetimepicker({
+      locale: 'en-au',
+      format: 'DD/MM/YYYY h:mm A',
+      stepping: 15
+  });
 });
