@@ -45,3 +45,10 @@ $(document).on('turbolinks:load', function() {
       stepping: 15
   });
 });
+
+window.dispatchMapsEvent = function(...args) {
+  const event = document.createEvent("Events")
+  event.initEvent("google-maps-callback", true, true)
+  event.args = args
+  window.dispatchEvent(event)
+}

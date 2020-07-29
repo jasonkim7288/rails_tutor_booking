@@ -26,5 +26,7 @@ class TutorSession < ApplicationRecord
   def init
     self.place = :offline
     self.category = :web_app
+    self.longitude = 0.0
+    self.latitude = 0.0
   end
 end

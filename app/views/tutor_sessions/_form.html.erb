@@ -1,5 +1,4 @@
-<div class="container">
-<%= form_with model: tutor_session, local: true, data: {controller: "tutor-sessions"} do |form| %>
+<%= form_with model: tutor_session, local: true, class: "row", data: {controller: "tutor-sessions", action: "google-maps-callback@window->tutor-sessions#initializeMap"} do |form| %>
   <% if tutor_session.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(tutor_session.errors.count, "error") %> prohibited this tutor session from being saved:</h2>
@@ -12,39 +11,40 @@
     </div>
   <% end %>
 
-  <div class="form-group field">
-    <%= form.label :title %>
-    <%= form.text_field :title, autofocus: true, class: "form-control" %>
-  </div>
-
-  <div class="form-group field">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: "form-control" %>
-  </div>
-
-  <div class="row">
-    <div class="form-group field col-12 col-md-6">
-      <%= form.label :place %>
-      <%# form-control does NOT work for form.select %>
-      <%#= form.select :place, TutorSession.places.map {|key, value| [key, value]}, class: "form-control" %>
-      <select name="tutor_session[place]" id="tutor_session_place" class="form-control" data-action="change->tutor-sessions#handle_change_place" data-target="tutor-sessions.place">
-        <% TutorSession.places.each do |key, value| %>
-          <option value="<%= key %>"><%= value %> </option>
-        <% end %>
-      </select>
+  <div class="col-12 col-md-7">
+    <div class="form-group field">
+      <%= form.label :title %>
+      <%= form.text_field :title, autofocus: true, class: "form-control" %>
     </div>
 
-    <div class="form-group field col-12 col-md-6">
-      <%= form.label :category %>
-      <%# form-control does NOT work for form.select %>
-      <%#= form.select :category, TutorSession.categories.map {|key, value| [value, key]}, class: "form-control" %>
-      <select name="tutor_session[category]" id="tutor_session_category" class="form-control">
-        <% TutorSession.categories.each do |key, value| %>
-          <option value="<%= key %>"><%= value %> </option>
-        <% end %>
-      </select>
+    <div class="form-group field">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: "form-control" %>
     </div>
-  </div>
+
+    <div class="row">
+      <div class="form-group field col-12 col-md-6">
+        <%= form.label :place %>
+        <%# form-control does NOT work for form.select %>
+        <%#= form.select :place, TutorSession.places.map {|key, value| [key, value]}, class: "form-control" %>
+        <select name="tutor_session[place]" id="tutor_session_place" class="form-control" data-action="change->tutor-sessions#handle_change_place" data-target="tutor-sessions.place">
+          <% TutorSession.places.each do |key, value| %>
+            <option value="<%= key %>"><%= value %> </option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="form-group field col-12 col-md-6">
+        <%= form.label :category %>
+        <%# form-control does NOT work for form.select %>
+        <%#= form.select :category, TutorSession.categories.map {|key, value| [value, key]}, class: "form-control" %>
+        <select name="tutor_session[category]" id="tutor_session_category" class="form-control">
+          <% TutorSession.categories.each do |key, value| %>
+            <option value="<%= key %>"><%= value %> </option>
+          <% end %>
+        </select>
+      </div>
+    </div>
 
     <div class="row">
         <div class="form-group field col-12 col-md-6">
@@ -73,26 +73,30 @@
         </div>
     </div>
 
-  <div class="form-group field <%= @hide_when_offline %>" data-target="tutor-sessions.confurl">
-    <%= form.label :conf_url, "Video conference URL" %>
-    <%= form.text_field :conf_url, class: "form-control" %>
+    <div class="form-group field <%= @hide_when_offline %>" data-target="tutor-sessions.confurlWrapper">
+      <%= form.label :conf_url, "Video conference URL" %>
+      <%= form.text_field :conf_url, class: "form-control" %>
+    </div>
+
+    <div class="form-group field <%= @hide_when_online %>" data-target="tutor-sessions.addressWrapper">
+      <%= form.label :address %>
+      <%= form.text_field :address, class: "form-control", data: { target: "tutor-sessions.address", action: "keydown->tutor-sessions#preventSubmit" } %>
+    </div>
+
+    <%= form.hidden_field :latitude, data: { target: "tutor-sessions.latitude" } %>
+    <%= form.hidden_field :longitude, data: { target: "tutor-sessions.longitude" } %>
+
+    <div class="form-group field">
+      <%= form.label :max_students_num %>
+      <%= form.number_field :max_students_num, class: "form-control" %>
+    </div>
+
+    <div class="form-group actions">
+      <%= form.submit class: "btn btn-primary btn-block" %>
+    </div>
   </div>
 
-  <div class="form-group field <%= @hide_when_online %>" data-target="tutor-sessions.address">
-    <%= form.label :address %>
-    <%= form.text_area :address, class: "form-control" %>
-  </div>
-
-  <%= form.hidden_field :latitude %>
-  <%= form.hidden_field :longitude %>
-
-  <div class="form-group field">
-    <%= form.label :max_students_num %>
-    <%= form.number_field :max_students_num, class: "form-control" %>
-  </div>
-
-  <div class="form-group actions">
-    <%= form.submit class: "btn btn-primary btn-block" %>
+  <div class="col-12 col-md-5">
+    <%= content_tag :div, nil, data: { target: "tutor-sessions.map" }, class: "map mb-4 rounded shadow-sm" %>
   </div>
 <% end %>
-</div>
