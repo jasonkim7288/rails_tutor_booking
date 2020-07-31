@@ -1,4 +1,10 @@
-<div data-controller="tutor-sessions" data-action= "google-maps-callback@window->tutor-sessions#initializeMap" data-target="tutor-sessions.wrappedWithContainer">
+<div data-controller="tutor-sessions"
+    data-action= "google-maps-callback@window->tutor-sessions#initializeMap"
+    data-target="tutor-sessions.wrappedWithContainer"
+    data-tutor-sessions-webIcon = "<%= image_path('header_img_web_app') %>"
+    data-tutor-sessions-mobileIcon = "<%= image_path('header_img_mobile_app') %>"
+    data-tutor-sessions-languageIcon = "<%= image_path('header_img_language') %>"
+    >
   <%= form_with model: tutor_session, local: true, class: "row mx-0" do |form| %>
     <% if tutor_session.errors.any? %>
       <div id="error_explanation">
@@ -12,23 +18,22 @@
       </div>
     <% end %>
 
-    <div class="col-12 col-md-7">
+    <div class="col-12 col-md-6">
       <div class="form-group field">
         <%= form.label :title %>
         <%= form.text_field :title, autofocus: true, class: "form-control" %>
       </div>
 
-      <div class="form-group field">
-        <%= form.label :description %>
-        <%= form.text_area :description, class: "form-control" %>
-      </div>
-
       <div class="row">
         <div class="form-group field col-12 col-md-6">
           <%= form.label :place %>
-          <%# form-control does NOT work for form.select %>
+          <%# bootstarp "form-control" class does NOT work for form.select, so select tag is used %>
           <%#= form.select :place, TutorSession.places.map {|key, value| [key, value]}, class: "form-control" %>
-          <select name="tutor_session[place]" id="tutor_session_place" class="form-control" data-action="change->tutor-sessions#handle_change_place" data-target="tutor-sessions.place">
+          <select name="tutor_session[place]"
+              id="tutor_session_place"
+              class="form-control"
+              data-target="tutor-sessions.place"
+              data-action="change->tutor-sessions#handle_change_place">
             <% TutorSession.places.each do |key, value| %>
               <option value="<%= key %>"><%= value %> </option>
             <% end %>
@@ -37,14 +42,35 @@
 
         <div class="form-group field col-12 col-md-6">
           <%= form.label :category %>
-          <%# form-control does NOT work for form.select %>
+          <%# bootstarp "form-control" class does NOT work for form.select, so select tag is used %>
           <%#= form.select :category, TutorSession.categories.map {|key, value| [value, key]}, class: "form-control" %>
-          <select name="tutor_session[category]" id="tutor_session_category" class="form-control">
+          <select name="tutor_session[category]"
+              id="tutor_session_category"
+              class="form-control"
+              data-target="tutor-sessions.category"
+              data-action="change->tutor-sessions#handle_change_category">
             <% TutorSession.categories.each do |key, value| %>
               <option value="<%= key %>"><%= value %> </option>
             <% end %>
           </select>
         </div>
+      </div>
+
+      <div class="form-group field">
+        <%= form.label :header_img, "Header image" %>
+        <img src= "<%= image_path('header_img_web_app') %>"
+          alt="tutor session header image"
+          onerror= "this.onerror=null;this.src=\"#{TutorSession::NOT_FOUND_PICTURE}\";"
+          data-target= "tutor-sessions.imageShown"
+          class= "w-100 mb-2"
+        >
+
+        <%= form.hidden_field :header_img, data: { target: "tutor-sessions.headerImg" } %>
+      </div>
+
+      <div class="form-group field">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: "form-control" %>
       </div>
 
       <div class="row">
@@ -84,22 +110,23 @@
         <%= form.text_field :conf_url, class: "form-control" %>
       </div>
 
-      <div class="form-group field" data-target="tutor-sessions.addressWrapper">
-        <%= form.label :address %>
-        <%= form.text_field :address, class: "form-control", data: { target: "tutor-sessions.address", action: "keydown->tutor-sessions#preventSubmit" } %>
-      </div>
 
       <%= form.hidden_field :latitude, data: { target: "tutor-sessions.latitude" } %>
       <%= form.hidden_field :longitude, data: { target: "tutor-sessions.longitude" } %>
     </div>
 
-    <div class="col-12 col-md-5" data-target="tutor-sessions.mapWrapper">
+    <div class="col-12 col-md-6" data-target="tutor-sessions.mapWrapper">
+      <div class="form-group field" data-target="tutor-sessions.addressWrapper">
+        <%= form.label :address %>
+        <%= form.text_field :address, class: "form-control", data: { target: "tutor-sessions.address", action: "keydown->tutor-sessions#preventSubmit" } %>
+      </div>
+
       <%= content_tag :div, nil, data: { target: "tutor-sessions.map" }, class: "map mb-4 rounded shadow-sm" %>
     </div>
 
-    <div class="col-12 col-md-7">
+    <div class="col-12">
       <div class="form-group actions">
-        <%= form.submit class: "btn btn-primary btn-block" %>
+        <%= form.submit class: "btn btn-primary btn-block mt-3" %>
       </div>
     </div>
   <% end %>

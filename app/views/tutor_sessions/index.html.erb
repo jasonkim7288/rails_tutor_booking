@@ -11,7 +11,7 @@
   </div>
 </div>
 
-
+<%= render 'session_card', tutor_sessions: @tutor_sessions %>
 
 <table>
   <thead>
@@ -26,7 +26,6 @@
       <th>Address</th>
       <th>Latitude</th>
       <th>Longitude</th>
-      <th>Decimal</th>
       <th>Max students num</th>
       <th>User</th>
       <th colspan="3"></th>
@@ -46,7 +45,6 @@
         <td><%= tutor_session.address %></td>
         <td><%= tutor_session.latitude %></td>
         <td><%= tutor_session.longitude %></td>
-        <td><%= tutor_session.decimal %></td>
         <td><%= tutor_session.max_students_num %></td>
         <td><%= tutor_session.user_id %></td>
         <td><%= link_to 'Show', tutor_session %></td>

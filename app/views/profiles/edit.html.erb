@@ -16,7 +16,14 @@
     <% end %>
 
     <div class="form-group field">
-      <%= image_tag "https://avatar.oxro.io/avatar.svg?name=#{@profile.full_name}&length=2", width: 100, style: "border-radius: 50%;"%>
+      <div class="row">
+        <%= image_tag @profile_image, class: "col-4", width: 100, style: "border-radius: 50%;"%>
+        <div class="col-8">
+          <h4 class="row"><%= @profile.full_name %></h4>
+          <h5 class="row mb-4 font-weight-normal"><%= @profile.user.email %></h5>
+          <%= form.file_field :picture, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/webp',  class:"row" %>
+        </div>
+      </div>
     </div>
 
     <div class="form-group field">
@@ -36,11 +43,11 @@
 
     <div class="form-group field">
       <%= form.label :about_me %>
-      <%= form.text_area :about_me, class: "form-control" %>
+      <%= form.text_area :about_me, class: "form-control", rows: "5" %>
     </div>
 
     <div class="form-group actions">
-      <%= f.submit class: "btn btn-primary btn-block" %>
+      <%= form.submit class: "btn btn-primary btn-block" %>
     </div>
   <% end %>
 </div>

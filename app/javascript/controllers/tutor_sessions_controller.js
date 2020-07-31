@@ -1,7 +1,10 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["place","wrappedWithContainer", "confUrlWrapper", "addressWrapper", "mapWrapper", "address", "map", "latitude", "longitude"]
+  static targets = ["place","wrappedWithContainer", "confUrlWrapper", "addressWrapper", "mapWrapper",
+                    "category", "headerImg", "imageShown",
+                    "address", "map", "latitude", "longitude"
+                  ]
 
   connect() {
     this.handle_change_place()
@@ -12,6 +15,37 @@ export default class extends Controller {
 
   // when place value is changed, the existence of video conference element and address element should switched, and map should be also on and off
   handle_change_place() {
+    if (this.placeTarget.value === 'offline') {
+      this.confUrlWrapperTarget.classList.add("d-none")
+      this.addressWrapperTarget.classList.remove("d-none")
+      this.mapWrapperTarget.classList.remove("d-none")
+      this.wrappedWithContainerTarget.classList.remove("container")
+    }
+    else {
+      this.confUrlWrapperTarget.classList.remove("d-none")
+      this.addressWrapperTarget.classList.add("d-none")
+      this.mapWrapperTarget.classList.add("d-none")
+      this.wrappedWithContainerTarget.classList.add("container")
+    }
+  }
+
+  handle_change_category() {
+    switch(this.categoryTarget.value) {
+      case 'web_app':
+        this.headerImgTarget.value = "header_img_web_app.png"
+        this.imageShownTarget.src = this.element.getAttribute("data-tutor-sessions-webIcon")
+        break
+      case 'mobile_app':
+        this.headerImgTarget.value = "header_img_mobile_app.png"
+        this.imageShownTarget.src = this.element.getAttribute("data-tutor-sessions-mobileIcon")
+        break
+      case 'prog_lang':
+        this.headerImgTarget.value = "header_img_language.png"
+        this.imageShownTarget.src = this.element.getAttribute("data-tutor-sessions-languageIcon")
+        break
+      default:
+        break
+    }
     if (this.placeTarget.value === 'offline') {
       this.confUrlWrapperTarget.classList.add("d-none")
       this.addressWrapperTarget.classList.remove("d-none")

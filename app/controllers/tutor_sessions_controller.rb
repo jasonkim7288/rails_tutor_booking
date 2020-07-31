@@ -19,6 +19,7 @@ class TutorSessionsController < ApplicationController
   # GET /tutor_sessions/new
   def new
     @tutor_session = TutorSession.new
+    @tutor_session.header_img = "header_img_web_app.png"
   end
 
   # GET /tutor_sessions/1/edit
@@ -28,7 +29,7 @@ class TutorSessionsController < ApplicationController
   # POST /tutor_sessions
   def create
     @tutor_session = TutorSession.new(tutor_session_params)
-
+    @tutor_session.user = current_user
     if @tutor_session.save
       redirect_to @tutor_session, notice: 'Tutor session was successfully created.'
     else
@@ -59,6 +60,6 @@ class TutorSessionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tutor_session_params
-      params.require(:tutor_session).permit(:title, :description, :place, :category, :start_datetime, :end_datetime, :conf_url, :address, :latitude, :longitude, :decimal, :max_students_num, :user_id)
+      params.require(:tutor_session).permit(:title, :header_img, :description, :place, :category, :start_datetime, :end_datetime, :conf_url, :address, :latitude, :longitude, :max_students_num, :user_id, :picture)
     end
 end

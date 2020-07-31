@@ -19,10 +19,13 @@ class TutorSession < ApplicationRecord
     mobile_app_for_search: "Mobile app development",
     prog_lang_for_search:"Programming language"
   }
-  belongs_to :user
 
+  NOT_FOUND_PICTURE = "https://images.unsplash.com/photo-1532619187608-e5375cab36aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+
+  belongs_to :user
   after_initialize :init
 
+  # set the default value when creating a new Model object
   def init
     self.place = :offline
     self.category = :web_app
