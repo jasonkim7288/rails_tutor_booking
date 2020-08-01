@@ -18,13 +18,14 @@
       </div>
     <% end %>
 
-    <%# display title %>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" data-target= "tutor-sessions.entireLayout">
+      <%# display title %>
       <div class="form-group field">
         <%= form.label :title %>
         <%= form.text_field :title, autofocus: true, class: "form-control" %>
       </div>
 
+      <%# Display place and category %>
       <div class="row">
         <div class="form-group field col-12 col-md-6">
           <%= form.label :place %>
@@ -36,7 +37,7 @@
               data-target="tutor-sessions.place"
               data-action="change->tutor-sessions#handle_change_place">
             <% TutorSession.places.each do |key, value| %>
-              <option value="<%= key %>"><%= value %> </option>
+              <option value="<%= key %>" selected="<%= tutor_session.place == key ? "true" : "false"%>"><%= value %> </option>
             <% end %>
           </select>
         </div>
@@ -51,7 +52,7 @@
               data-target="tutor-sessions.category"
               data-action="change->tutor-sessions#handle_change_category">
             <% TutorSession.categories.each do |key, value| %>
-              <option value="<%= key %>"><%= value %> </option>
+              <option value="<%= key %>" selected="<%= tutor_session.category == key ? "true" : "false"%>"><%= value %> </option>
             <% end %>
           </select>
         </div>
@@ -59,11 +60,12 @@
 
       <%# display header image. The value is hidden, and only image itself will be displayed %>
       <div class="form-group field">
-        <%= form.label :header_img, "Header image" %>
+        <%= form.label :header_img, "Header image" %> <br/>
         <img src= "<%= image_path('header_img_web_app') %>"
           alt="tutor session header image"
           data-target= "tutor-sessions.imageShown"
           class= "w-100 mb-2"
+          style= "max-width: 523px;"
         >
         <%= form.hidden_field :header_img, data: { target: "tutor-sessions.headerImg" } %>
       </div>
@@ -71,7 +73,7 @@
       <%# display description %>
       <div class="form-group field">
         <%= form.label :description %>
-        <%= form.text_area :description, class: "form-control" %>
+        <%= form.text_area :description, class: "form-control", rows: 5 %>
       </div>
 
       <%# display start and dend date/time with tempusdominus-bootstrap-4 %>

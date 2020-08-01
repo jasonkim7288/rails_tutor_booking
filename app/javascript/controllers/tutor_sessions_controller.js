@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["place","wrappedWithContainer", "confUrlWrapper", "addressWrapper", "mapWrapper",
+  static targets = ["place","wrappedWithContainer", "entireLayout", "confUrlWrapper", "addressWrapper", "mapWrapper",
                     "category", "headerImg", "imageShown",
                     "address", "map", "latitude", "longitude"
                   ]
@@ -20,12 +20,14 @@ export default class extends Controller {
       this.addressWrapperTarget.classList.remove("d-none")
       this.mapWrapperTarget.classList.remove("d-none")
       this.wrappedWithContainerTarget.classList.remove("container")
+      this.entireLayoutTarget.classList.add("col-md-6")
     }
     else {
       this.confUrlWrapperTarget.classList.remove("d-none")
       this.addressWrapperTarget.classList.add("d-none")
       this.mapWrapperTarget.classList.add("d-none")
       this.wrappedWithContainerTarget.classList.add("container")
+      this.entireLayoutTarget.classList.remove("col-md-6")
     }
   }
 
