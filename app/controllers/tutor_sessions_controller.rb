@@ -10,7 +10,7 @@ class TutorSessionsController < ApplicationController
   # GET /tutor_sessions/search
   def search_result
     if params[:search_option] == "searching"
-      @title = "Search results"
+      @title = TutorSession.get_searched_title(params[:search_text])
       @tutor_sessions = TutorSession.get_searched_result(params[:search_text])
     else
       @title = TutorSession.get_filtered_title(params[:place], params[:category])

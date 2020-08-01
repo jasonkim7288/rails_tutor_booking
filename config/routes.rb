@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'settings/notifications'
   get 'settings/close_account'
   get 'tutor_sessions/search_result', to: 'tutor_sessions#search_result', as: 'search_tutor_session'
+  get 'tutor_sessions/attend'
   resources :tutor_sessions
   devise_for :users, controllers: {registrations: 'registrations'}
   root 'tutor_sessions#index'

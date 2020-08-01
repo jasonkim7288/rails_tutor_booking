@@ -1,32 +1,54 @@
-<p>
-  <strong>Title:</strong>
-  <%= @tutor_session.title %>
-</p>
+<div style="background-color: #202020; color: white">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <p class="mt-4 font-weight-bold"><%= "#{TutorSession.places[@tutor_session.place]} > #{TutorSession.categories[@tutor_session.category]}" %></p>
+        <h1 class=""><%= @tutor_session.title %></h1>
+        <p><%= @tutor_session.description %></p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @tutor_session.description %>
-</p>
+        <div class="row align-items-center mb-3">
+          <div class="col-1 text-center show-icon">
+              <i class="far fa-clock"></i>
+          </div>
+          <div class="col-11">
+            <p class="m-0"><%= "From : #{@tutor_session.start_datetime.strftime('%A, %e %B %Y %l:%M %p')}" %></p>
+            <p class="m-0"><%= "To : #{@tutor_session.end_datetime.strftime('%A, %e %B %Y %l:%M %p')}" %></p>
+          </div>
+        </div>
+        <span>
+        </span>
+      </div>
+      <div class="d-none d-lg-block col-lg-4 card single-session-card mt-5 shadow"
+          style="background-color: white; color: black; position: fixed; top: 80px; right: 50px; border: none;" >
+        <%= image_tag @tutor_session.header_img, class: "card-img-top", alt: "tutor session header image" %>
+        <div class="card-body py-4">
+          <p class="card-text font-weight-bold text-primary"><%= "2 seats left (out of #{@tutor_session.max_students_num})" %></p>
+          <% if user_signed_in? %>
+            <% if current_user.id == @tutor_session.user.id %>
+              <h4 class="card-text text-center mb-4">You are the tutor</h4>
+              <%= link_to 'Edit', edit_tutor_session_path(@tutor_session), class: "btn btn-success btn-block" %>
+              <%= link_to 'Remove', @tutor_session, method: :delete, class: "btn btn-danger btn-block" %>
+            <% else %>
+              <%= link_to 'Attend', tutor_sessions_attend_path, class: "btn btn-danger btn-block" %>
+            <% end %>
+          <% else %>
+            <%= link_to 'Attend', new_user_session_path, class: "btn btn-danger btn-block" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Place:</strong>
-  <%= @tutor_session.place %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @tutor_session.category %>
-</p>
-
-<p>
-  <strong>Start datetime:</strong>
-  <%= @tutor_session.start_datetime %>
-</p>
-
-<p>
-  <strong>End datetime:</strong>
-  <%= @tutor_session.end_datetime %>
-</p>
+<div class="container mt-3">
+  <% if @tutor_session.place == "online" %>
+    <div class="show-icon"><i class="fas fa-video"></i></div>
+    <p><%= @tutor_session.conf_url %></p>
+  <% else %>
+    <span class="show-icon show-icon-margin"><i class="fas fa-map-marker-alt"></i></span>
+    <span><%= @tutor_session.address %></span>
+  <% end %>
+</div>
 
 <p>
   <strong>Conf url:</strong>
@@ -35,12 +57,12 @@
 
 <p>
   <strong>Address:</strong>
-  <%= @tutor_session.address %>
+
 </p>
 
 <p>
   <strong>Max students num:</strong>
-  <%= @tutor_session.max_students_num %>
+  <%=  %>
 </p>
 
 <%= link_to 'Edit', edit_tutor_session_path(@tutor_session) %> |

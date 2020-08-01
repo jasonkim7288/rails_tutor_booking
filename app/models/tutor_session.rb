@@ -39,9 +39,18 @@ class TutorSession < ApplicationRecord
 
   end
 
+  # return the proper title for filter
+  def self.get_searched_title(param_search_text)
+    if invalid_search_params?(param_search_text)
+      return "Searched results"
+    else
+      return "Searched results for \"#{param_search_text}\""
+    end
+  end
+
   # search by keyword using pg_search gem
   def self.get_searched_result(param_search_text)
-    return [] if param_search_text.length > 30
+    return [] if invalid_search_params?(param_search_text)
 
     # PgSearch::Multisearch.rebuild(Profile)
     # PgSearch::Multisearch.rebuild(Comment)
@@ -71,7 +80,7 @@ class TutorSession < ApplicationRecord
   def self.get_filtered_title(param_place, param_category)
     puts "------------------------------"
     p param_place, param_category
-    if invalid_params?(param_place, param_category)
+    if invalid_filter_params?(param_place, param_category)
       return "Filtered sessions"
     else
       is_any_place = (param_place == "any_place_for_search")
@@ -81,7 +90,7 @@ class TutorSession < ApplicationRecord
 
   # search by filtering place type and category
   def self.get_filtered_result(param_place, param_category)
-    if invalid_params?(param_place, param_category)
+    if invalid_filter_params?(param_place, param_category)
       return []
     end
 
@@ -132,7 +141,15 @@ class TutorSession < ApplicationRecord
       end
     end
 
-    def self.invalid_params?(param_place, param_category)
+    def self.invalid_search_params?(param_search_text)
+      if param_search_text == nil || param_search_text.length > 50
+        return true
+      else
+        return false
+      end
+    end
+
+    def self.invalid_filter_params?(param_place, param_category)
       if param_place == nil || param_category == nil || param_place.length > 30 || param_category.length > 30
         return true
       else
