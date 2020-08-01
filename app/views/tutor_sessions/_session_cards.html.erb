@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="text-center mb-4"><%= title %></h1>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+    <% tutor_sessions.each do |tutor_session| %>
+      <div class= "col mb-4">
+        <div class="card h-100 session-card" >
+          <%= link_to tutor_session do %>
+            <%= image_tag tutor_session.header_img,
+                class: "card-img-top",
+                alt: "tutor session header image" %>
+
+            <div class="card-body px-0 py-2">
+              <h6 class="card-title"><%= truncate tutor_session.title, length: 60 %></h6>
+              <p class="card-text card-tutor"><%= tutor_session.user.profile.get_name %></p>
+              <p class="card-text"><%= TutorSession.places[tutor_session.place] %></p>
+              <p class="card-text"><%= tutor_session.start_datetime.strftime('%d/%m/%Y %l:%M %p') %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

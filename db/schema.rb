@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_102656) do
+ActiveRecord::Schema.define(version: 2020_08_01_084002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,33 @@ ActiveRecord::Schema.define(version: 2020_07_30_102656) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "tutor_session_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tutor_session_id"], name: "index_comments_on_tutor_session_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
     t.string "phone_number"
     t.text "about_me"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.string "img_type"
+    t.string "name"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -80,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_07_30_102656) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "tutor_sessions"
+  add_foreign_key "comments", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "tutor_sessions", "users"
 end

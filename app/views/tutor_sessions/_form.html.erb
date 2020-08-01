@@ -18,6 +18,7 @@
       </div>
     <% end %>
 
+    <%# display title %>
     <div class="col-12 col-md-6">
       <div class="form-group field">
         <%= form.label :title %>
@@ -56,23 +57,24 @@
         </div>
       </div>
 
+      <%# display header image. The value is hidden, and only image itself will be displayed %>
       <div class="form-group field">
         <%= form.label :header_img, "Header image" %>
         <img src= "<%= image_path('header_img_web_app') %>"
           alt="tutor session header image"
-          onerror= "this.onerror=null;this.src=\"#{TutorSession::NOT_FOUND_PICTURE}\";"
           data-target= "tutor-sessions.imageShown"
           class= "w-100 mb-2"
         >
-
         <%= form.hidden_field :header_img, data: { target: "tutor-sessions.headerImg" } %>
       </div>
 
+      <%# display description %>
       <div class="form-group field">
         <%= form.label :description %>
         <%= form.text_area :description, class: "form-control" %>
       </div>
 
+      <%# display start and dend date/time with tempusdominus-bootstrap-4 %>
       <div class="row">
           <div class="form-group field col-12 col-md-6">
               <%= form.label :start_datetime, "Start date/time" %>
@@ -100,30 +102,35 @@
           </div>
       </div>
 
+      <%# display max students number %>
       <div class="form-group field">
         <%= form.label :max_students_num %>
         <%= form.number_field :max_students_num, class: "form-control" %>
       </div>
 
+      <%# display conference URL if the tutor selects online %>
       <div class="form-group field" data-target="tutor-sessions.confUrlWrapper">
         <%= form.label :conf_url, "Video conference URL" %>
         <%= form.text_field :conf_url, class: "form-control" %>
       </div>
-
-
-      <%= form.hidden_field :latitude, data: { target: "tutor-sessions.latitude" } %>
-      <%= form.hidden_field :longitude, data: { target: "tutor-sessions.longitude" } %>
     </div>
 
     <div class="col-12 col-md-6" data-target="tutor-sessions.mapWrapper">
+      <%# store GPS coordinates to diplay the exact location later %>
+      <%= form.hidden_field :latitude, data: { target: "tutor-sessions.latitude" } %>
+      <%= form.hidden_field :longitude, data: { target: "tutor-sessions.longitude" } %>
+
+      <%# display address with Google Place API. It will connect to tutor_sessions_controller.js (Stimulus js) %>
       <div class="form-group field" data-target="tutor-sessions.addressWrapper">
         <%= form.label :address %>
         <%= form.text_field :address, class: "form-control", data: { target: "tutor-sessions.address", action: "keydown->tutor-sessions#preventSubmit" } %>
       </div>
 
+      <%# display dynamic map image with Google Maps API %>
       <%= content_tag :div, nil, data: { target: "tutor-sessions.map" }, class: "map mb-4 rounded shadow-sm" %>
     </div>
 
+    <%# display submit button %>
     <div class="col-12">
       <div class="form-group actions">
         <%= form.submit class: "btn btn-primary btn-block mt-3" %>

@@ -1,11 +1,14 @@
 class Profile < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: [:name, :about_me]
+
   belongs_to :user
   has_one_attached :picture
 
   # if the user didn't input fist name and last name, just return the email address with only id part
-  def full_name
-    return user.email.split("@")[0] if (first_name == nil || first_name =="") && (last_name == nil || last_name == "")
-    return (first_name + " " + last_name).strip
+  def get_name
+    return user.email.split("@")[0] if name == nil || name ==""
+    return name
   end
 
   # get profile image depending on image_type

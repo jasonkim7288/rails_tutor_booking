@@ -3,13 +3,19 @@ class TutorSessionsController < ApplicationController
 
   # GET /tutor_sessions
   def index
-    @tutor_sessions = TutorSession.all
+    @tutor_sessions = TutorSession.all.includes(:user)
 
   end
 
   # GET /tutor_sessions/search
   def search_result
-
+    if params[:search_option] == "searching"
+      @title = "Search results"
+      @tutor_sessions = TutorSession.get_searched_result(params[:search_text])
+    else
+      @title = TutorSession.get_filtered_title(params[:place], params[:category])
+      @tutor_sessions = TutorSession.get_filtered_result(params[:place], params[:category])
+    end
   end
 
   # GET /tutor_sessions/1
@@ -30,6 +36,7 @@ class TutorSessionsController < ApplicationController
   def create
     @tutor_session = TutorSession.new(tutor_session_params)
     @tutor_session.user = current_user
+
     if @tutor_session.save
       redirect_to @tutor_session, notice: 'Tutor session was successfully created.'
     else

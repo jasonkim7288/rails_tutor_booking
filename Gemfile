@@ -58,3 +58,5 @@ gem 'stimulus_reflex', '~> 3.2'
 gem 'devise'
 
 gem 'aws-sdk-s3'
+
+gem 'pg_search'

@@ -14,8 +14,15 @@
  *= require_self
  */
 
+@import 'variables';
+
 body {
-  background-color: #e1f2fd;
+  background-color: $bg-color;
+}
+
+a, a:link, a:hover {
+  color: inherit;
+  text-decoration: none;
 }
 
 .main-width {
@@ -118,21 +125,37 @@ body {
 }
 
 @media (min-width: 768px) {
-    .map {
-        min-height: 86%;
-    }
+  .map {
+    min-height: 86%;
+  }
 }
 
 .session-card {
-  background-color: #181818 !important;
-  width: 230px;
-
+  border: none;
   &:hover {
-    transform: scale(1.01);
+    opacity: 0.8;
+    transform: scale(1.03);
   }
   .card-img-top {
     width: 100%;
-    height: 274px;
-    object-fit: cover;
+    height: 110px;
+    object-fit: contain;
+  }
+  .card-body {
+    background: $bg-color;
+    min-height: 130px;
+    max-height: 100px;
+    overflow: hidden;
+    .card-title {
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+    .card-tutor {
+      font-weight: lighter;
+      font-size: 0.9em
+    }
+    .card-text {
+      margin: 0;
+    }
   }
 }

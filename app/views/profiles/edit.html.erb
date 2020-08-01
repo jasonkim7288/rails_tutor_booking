@@ -19,7 +19,7 @@
       <div class="row">
         <%= image_tag @profile_image, class: "col-4", width: 100, style: "border-radius: 50%;"%>
         <div class="col-8">
-          <h4 class="row"><%= @profile.full_name %></h4>
+          <h4 class="row"><%= @profile.get_name %></h4>
           <h5 class="row mb-4 font-weight-normal"><%= @profile.user.email %></h5>
           <%= form.file_field :picture, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/webp',  class:"row" %>
         </div>
@@ -27,16 +27,11 @@
     </div>
 
     <div class="form-group field">
-      <%= form.label :first_name %>
-      <%= form.text_field :first_name, class: "form-control" %>
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
     </div>
 
-    <div class="form-group field">
-      <%= form.label :last_name %>
-      <%= form.text_field :last_name, class: "form-control" %>
-    </div>
-
-    <div class="form-group field">
+     <div class="form-group field">
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, class: "form-control" %>
     </div>
