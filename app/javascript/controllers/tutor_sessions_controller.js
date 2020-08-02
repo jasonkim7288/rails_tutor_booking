@@ -8,6 +8,7 @@ export default class extends Controller {
 
   connect() {
     this.handle_change_place()
+    this.handle_change_category()
     if (typeof (google) != "undefined") {
       this.initializeMap()
     }
@@ -47,18 +48,6 @@ export default class extends Controller {
         break
       default:
         break
-    }
-    if (this.placeTarget.value === 'offline') {
-      this.confUrlWrapperTarget.classList.add("d-none")
-      this.addressWrapperTarget.classList.remove("d-none")
-      this.mapWrapperTarget.classList.remove("d-none")
-      this.wrappedWithContainerTarget.classList.remove("container")
-    }
-    else {
-      this.confUrlWrapperTarget.classList.remove("d-none")
-      this.addressWrapperTarget.classList.add("d-none")
-      this.mapWrapperTarget.classList.add("d-none")
-      this.wrappedWithContainerTarget.classList.add("container")
     }
   }
 

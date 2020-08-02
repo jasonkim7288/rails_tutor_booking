@@ -37,7 +37,13 @@
               data-target="tutor-sessions.place"
               data-action="change->tutor-sessions#handle_change_place">
             <% TutorSession.places.each do |key, value| %>
-              <option value="<%= key %>" selected="<%= tutor_session.place == key ? "true" : "false"%>"><%= value %> </option>
+              <%# "selected" attribute is a little bit wierd like even if there is selected="false", it will take it as selected %>
+              <% if tutor_session.place == key %>
+                <option value="<%= key %>" selected><%= value %> </option>
+              <% else %>
+                <option value="<%= key %>"><%= value %> </option>
+              <% end %>
+
             <% end %>
           </select>
         </div>
@@ -52,7 +58,12 @@
               data-target="tutor-sessions.category"
               data-action="change->tutor-sessions#handle_change_category">
             <% TutorSession.categories.each do |key, value| %>
-              <option value="<%= key %>" selected="<%= tutor_session.category == key ? "true" : "false"%>"><%= value %> </option>
+              <%# "selected" attribute is a little bit wierd like even if there is selected="false", it will take it as selected %>
+              <% if tutor_session.category == key %>
+                <option value="<%= key %>" selected><%= value %> </option>
+              <% else %>
+                <option value="<%= key %>"><%= value %> </option>
+              <% end %>
             <% end %>
           </select>
         </div>

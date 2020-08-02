@@ -40,7 +40,9 @@
             <i class="fas fa-video"></i>
           </div>
           <div class="col-11">
-            <p class="m-0"><%= @tutor_session.conf_url %></p>
+            <%= link_to @tutor_session.conf_url do %>
+              <p class="m-0 text-primary"><%= @tutor_session.conf_url %></p>
+            <% end %>
           </div>
         </div>
       <% else %>

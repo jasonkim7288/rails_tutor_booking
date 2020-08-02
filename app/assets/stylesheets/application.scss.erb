@@ -31,19 +31,20 @@ a, a:link, a:hover {
 
 // alert message slide up/down effect
 @keyframes alert-keyframes {
-  0% {top: -300px;}
-  30% {top: -10px;}
-  70% {top: -10px;}
-  100% {top: -300px;}
+  0% {left: -10%;}
+  30% {left: -10%;}
+  70% {left: -10%;}
+  100% {left: -100%;}
 }
 
 .alert {
   position: fixed;
-  top: -300px;
-  width: 50%;
+  top: 56px;
+  left: -100%;
+  width: 100%;
   opacity: 0.9;
-  animation: alert-keyframes 5s;
-  border-radius: 20px;
+  animation: alert-keyframes 6s;
+  border-radius: 10px;
   z-index: 10;
 }
 

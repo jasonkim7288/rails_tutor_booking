@@ -4,7 +4,6 @@ class TutorSessionsController < ApplicationController
   # GET /tutor_sessions
   def index
     @tutor_sessions = TutorSession.all.includes(:user)
-
   end
 
   # GET /tutor_sessions/search
