@@ -31,8 +31,8 @@ a, a:link, a:hover {
 
 // alert message slide up/down effect
 @keyframes alert-keyframes {
-  0% {left: -10%;}
-  30% {left: -10%;}
+  0% {left: -100%;}
+  5% {left: -10%;}
   70% {left: -10%;}
   100% {left: -100%;}
 }
@@ -43,7 +43,7 @@ a, a:link, a:hover {
   left: -100%;
   width: 100%;
   opacity: 0.9;
-  animation: alert-keyframes 6s;
+  animation: alert-keyframes 7s;
   border-radius: 10px;
   z-index: 10;
 }
@@ -182,4 +182,10 @@ a, a:link, a:hover {
 .show-map {
   width: 100%;
   height: 400px;
+}
+
+.comment-profile-image {
+  border-radius: 50%;
+  width: 30px;
+  margin-right: 10px;
 }

@@ -4,6 +4,7 @@ export default class extends Controller {
     static targets = ["map"];
 
     connect() {
+        console.log("maps connected")
         if (typeof(google) != "undefined") {
             this.initializeMap();
         }

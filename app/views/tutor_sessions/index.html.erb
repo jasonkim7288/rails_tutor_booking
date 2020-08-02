@@ -3,8 +3,8 @@
     <h1 class="text-center">Helping each other will make <br class="d-none d-md-block" />you great developers</h1>
     <%= form_with url: search_tutor_session_path, method: :get, local: "true", class:"form-inline my-5 " do |form| %>
       <div class= "ml-sm-auto mr-sm-auto">
-        <%= select_tag :place, options_for_select(TutorSession.place_for_searches.map {|key, value| [value, key]}), class: "form-control my-3" %>
-        <%= select_tag :category, options_for_select(TutorSession.category_for_searches.map {|key, value| [value, key]}), class: "form-control my-3 mx-sm-3" %>
+        <%= select_tag :place, options_for_select(TutorSession.place_for_filters.map {|key, value| [value, key]}), class: "form-control my-3" %>
+        <%= select_tag :category, options_for_select(TutorSession.category_for_filters.map {|key, value| [value, key]}), class: "form-control my-3 mx-sm-3" %>
         <%= hidden_field_tag :search_option, "filtering" %>
         <%= form.submit "Search", class: "btn btn-primary" %>
       </div>

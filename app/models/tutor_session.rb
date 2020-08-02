@@ -2,31 +2,39 @@ class TutorSession < ApplicationRecord
   include PgSearch::Model
   multisearchable against: [:title, :description, :place, :category, :address]
 
+  # place enum is for storing place info to model or displaying place with a select tag on the tutor booking edit page
   enum place: {
     offline: "Offline",
     online: "Online"
   }
-  enum place_for_search: {
-    any_place_for_search: "Any place",
-    offline_for_search: "Offline",
-    online_for_search: "Online"
+
+  # place_for_filter enum is for displaying place with a select tag on the tutor booking main page to filter
+  enum place_for_filter: {
+    any_place_for_filter: "Any place",
+    offline_for_filter: "Offline",
+    online_for_filter: "Online"
   }
+
+  # category enum is for storing category info to model or displaying category with a select tag on the tutor booking edit page
   enum category: {
     web_app: "Web app development",
     mobile_app: "Mobile app development",
     prog_lang:"Programming language"
   }
-  enum category_for_search: {
-    all_category_for_search: "All category",
-    web_app_for_search: "Web app development",
-    mobile_app_for_search: "Mobile app development",
-    prog_lang_for_search:"Programming language"
+
+  # category_for_filter enum is for displaying category with a select tag on the tutor booking main page to filter
+  enum category_for_filter: {
+    all_category_for_filter: "All category",
+    web_app_for_filter: "Web app development",
+    mobile_app_for_filter: "Mobile app development",
+    prog_lang_for_filter:"Programming language"
   }
 
   NOT_FOUND_PICTURE = "https://images.unsplash.com/photo-1532619187608-e5375cab36aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
 
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :attendances, dependent: :destroy
   after_initialize :init
 
   def period
@@ -78,13 +86,13 @@ class TutorSession < ApplicationRecord
 
   # return the proper title for filter
   def self.get_filtered_title(param_place, param_category)
-    puts "------------------------------"
-    p param_place, param_category
     if invalid_filter_params?(param_place, param_category)
       return "Filtered sessions"
     else
-      is_any_place = (param_place == "any_place_for_search")
-      return "#{(self.place_for_searches[param_place] + " ") if !is_any_place} #{self.category_for_searches[param_category]}#{" at any places" if is_any_place}"
+      is_any_place = (param_place == "any_place_for_filter")
+      param_place = param_place.to_sym
+      param_category = param_category.to_sym
+      return "#{(self.place_for_filters[self.place_to_place_for_filter(param_place)] + " ") if !is_any_place} #{self.category_for_filters[self.category_to_category_for_filter(param_category)]}#{" at any places" if is_any_place}"
     end
   end
 
@@ -94,17 +102,17 @@ class TutorSession < ApplicationRecord
       return []
     end
 
-    param_place = param_place.to_sym
-    param_category = param_category.to_sym
+    param_place = self.place_to_place_for_filter(param_place.to_sym)
+    param_category = self.category_to_category_for_filter(param_category.to_sym)
 
-    if param_place == :any_place_for_search && param_category == :all_category_for_search
+    if param_place == :any_place_for_filter && param_category == :all_category_for_filter
       return self.all.includes(:user)
-    elsif param_place != :any_place_for_search && param_category == :all_category_for_search
-      return self.where(place: matched_place_for_filter(param_place)).includes(:user)
-    elsif param_place == :any_place_for_search && param_category != :all_category_for_search
-      return self.where(category: matched_category_for_filter(param_category)).includes(:user)
+    elsif param_place != :any_place_for_filter && param_category == :all_category_for_filter
+      return self.where(place: place_for_filter_to_place(param_place)).includes(:user)
+    elsif param_place == :any_place_for_filter && param_category != :all_category_for_filter
+      return self.where(category: category_for_filter_to_category(param_category)).includes(:user)
     else
-      return self.where(place: matched_place_for_filter(param_place), category: matched_category_for_filter(param_category)).includes(:user)
+      return self.where(place: place_for_filter_to_place(param_place), category: category_for_filter_to_category(param_category)).includes(:user)
     end
   end
 
@@ -121,30 +129,83 @@ class TutorSession < ApplicationRecord
       self.latitude = 0.0 if self.latitude == nil
     end
 
-    def self.matched_place_for_filter (param_place)
+    # when click the place on the show page, the value like :offline or :online will also be used for filtering
+    def self.place_for_filter_to_place (param_place)
       case param_place
-      when :offline_for_search
+      when :offline_for_filter
         return :offline
-      when :online_for_search
+      when :offline
+        return :offline
+      when :online_for_filter
+        return :online
+      when :online
         return :online
       else
         return ""
       end
     end
 
-    def self.matched_category_for_filter (param_category)
+    # when click the place on the show page, the value like :offline or :online will also be used for filtering
+    def self.place_to_place_for_filter (param_place)
+      case param_place
+      when :offline
+        return :offline_for_filter
+      when :online
+        return :online_for_filter
+      when :offline_for_filter
+        return param_place
+      when :online_for_filter
+        return param_place
+      when :any_place_for_filter
+        return param_place
+      else
+        return ""
+      end
+    end
+
+    # when click the category on the show page, the value like :web_app, :mobile_app, or :prog_lang will also be used for filtering
+    def self.category_for_filter_to_category (param_category)
       case param_category
-      when :web_app_for_search
+      when :web_app_for_filter
         return :web_app
-      when :mobile_app_for_search
+      when :web_app
+        return :web_app
+      when :mobile_app_for_filter
         return :mobile_app
-      when :prog_lang_for_search
+      when :mobile_app
+        return :mobile_app
+      when :prog_lang_for_filter
+        return :prog_lang
+      when :prog_lang
         return :prog_lang
       else
         return ""
       end
     end
 
+    # when click the category on the show page, the value like :web_app, :mobile_app, or :prog_lang will also be used for filtering
+    def self.category_to_category_for_filter (param_category)
+      case param_category
+      when :web_app
+        return :web_app_for_filter
+      when :mobile_app
+        return :mobile_app_for_filter
+      when :prog_lang
+        return :prog_lang_for_filter
+      when :web_app_for_filter
+        return param_category
+      when :mobile_app_for_filter
+        return param_category
+      when :prog_lang_for_filter
+        return param_category
+      when :all_category_for_filter
+        return param_category
+      else
+        return ""
+      end
+    end
+
+    # if the parameter is nil or its length is too long, return ture
     def self.invalid_search_params?(param_search_text)
       if param_search_text == nil || param_search_text.length > 50
         return true
@@ -153,6 +214,7 @@ class TutorSession < ApplicationRecord
       end
     end
 
+    # if the parameters are nill or their lengths are too long, return ture
     def self.invalid_filter_params?(param_place, param_category)
       if param_place == nil || param_category == nil || param_place.length > 30 || param_category.length > 30
         return true

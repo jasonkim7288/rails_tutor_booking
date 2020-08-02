@@ -1,2 +1,0 @@
-class TutorSessionsReflex < ApplicationReflex
-end

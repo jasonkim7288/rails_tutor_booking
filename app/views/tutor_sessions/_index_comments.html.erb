@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+  <% comments.each do |comment| %>
+    <% if comment.id %>
+      <div class="card my-3 col-11 col-md-11">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2">
+            <%# display profile image %>
+            <span>
+              <%= image_tag comment.user.profile.get_profile_image(comment.user.profile.get_name), class:"comment-profile-image"%>
+            </span>
+            <%# display the name of the user who made this comment  %>
+            <span class="text-info">
+              <%= comment.user.profile.get_name %>
+            </span>
+            <%# display created datetime with time ago format  %>
+            <span class="font-weight-light ml-4" style="font-size: 0.9em">
+              <%= time_ago_in_words(comment.created_at) %>
+            </span>
+          </h6>
+          <p class="card-text">
+            <%# if the comment is edit mode, create a form %>
+            <% if user_signed_in? && current_user.id == comment.user.id && @edit_mode == comment.id %>
+              <%= form_with model: [tutor_session, comment],
+                data: { reflex: "submit->CommentReflex#update", comment_id: comment.id } do |form|
+              %>
+                <div class="form-group">
+                  <%= form.text_area :body, placeholder: "Enter your message", class: "form-control", id: "comment-#{comment.id}", row: 3 %>
+                </div>
+
+                <div class="actions">
+                  <%= form.submit class: "btn btn-sm btn-success" %>
+                  <%= link_to 'Cancel', "#",
+                    data: { reflex: "click->CommentReflex#cancel_edit" },
+                    class: "btn btn-sm btn-secondary"
+                  %>
+                </div>
+              <% end %>
+            <%# if the comment is not edit mode just display the body %>
+            <% else %>
+              <%= comment.body %>
+            <% end %>
+          </p>
+          <%# if user signed in and this comment belongs to the current user, display edit and delete button %>
+          <% if user_signed_in? && current_user.id == comment.user.id %>
+            <p class="text-right mb-0">
+              <% if @edit_mode != comment.id %>
+                <%= link_to "#", data: { reflex: "click->CommentReflex#edit", comment_id: comment.id },
+                    class: "text-success mr-3",
+                    style: "font-size: 1.3em" do %>
+                  <i class="far fa-edit"></i>
+                <% end %>
+                <%= link_to "#", data: { reflex: "click->CommentReflex#destroy", comment_id: comment.id },
+                    class: "text-danger",
+                    style: "font-size: 1.3em" do %>
+                  <i class="far fa-trash-alt"></i>
+                <% end %>
+              <% end %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
