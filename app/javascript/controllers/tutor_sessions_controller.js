@@ -32,6 +32,7 @@ export default class extends Controller {
     }
   }
 
+  // when category is changed, a default header image will be changed
   handle_change_category() {
     switch(this.categoryTarget.value) {
       case 'web_app':

@@ -1,6 +1,6 @@
 class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy, :attend, :cancel_attend]
-  before_action :authenticate_user!, only: [:attend, :cancel_attend]
+  before_action :authenticate_user!, only: [:attend, :cancel_attend, :new]
 
   # GET /tutor_sessions
   def index

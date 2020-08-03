@@ -76,7 +76,7 @@
         <%# because comment actions are based on Stimulus Reflex, and when refreshed, they cause the map div element refreshed but don't run show-map Stimulus JS controller. %>
         <%# By adding data-reflex-permanent, Stimulus Reflex will not refresh the map div element so that current map display status will be as it is %>
         <div data-reflex-permanent class="row mx-0" data-controller="show-map" data-action="google-maps-callback@window->show-map#initializeMap" latitude="<%= @tutor_session.latitude %>" longitude="<%= @tutor_session.longitude %>">
-            <%= content_tag :div, nil, data: { target: "show-map.map" }, class: "show-map mb-5 rounded shadow" %>
+          <div class="show-map mb-5 rounded shadow" data-target="show-map.map"></div>
         </div>
       <% end %>
     </div>

@@ -1,3 +1,4 @@
+<%# this card style content is for displaying header image,  %>
 <div class="<%= card_body %> py-4">
   <p class="<%= card_text %> font-weight-bold text-primary"><%= "#{remained_seats} seats left (out of #{@tutor_session.max_students_num})" %></p>
   <% if user_signed_in? %>
