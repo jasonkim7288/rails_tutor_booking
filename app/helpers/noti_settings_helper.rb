@@ -1,0 +1,2 @@
+module NotiSettingsHelper
+end

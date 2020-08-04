@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_133525) do
+ActiveRecord::Schema.define(version: 2020_08_03_133604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 2020_08_02_133525) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tutor_session_id"], name: "index_comments_on_tutor_session_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "noti_settings", force: :cascade do |t|
+    t.boolean "session_changed", null: false
+    t.boolean "one_day_to_start", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_noti_settings_on_user_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -111,6 +120,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_133525) do
   add_foreign_key "attendances", "users"
   add_foreign_key "comments", "tutor_sessions"
   add_foreign_key "comments", "users"
+  add_foreign_key "noti_settings", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "tutor_sessions", "users"
 end

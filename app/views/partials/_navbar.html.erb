@@ -8,21 +8,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item mr-5">
+          <%# this form is for search keywords %>
           <%= form_with url: search_tutor_session_path, method: :get, class: "form-inline", local: true do |f| %>
-            <div id= "search-data-tutor-session" class="form-search search-data input-group" data-names="">
-              <%= text_field_tag :search_text, nil, autocomplete: :off, class: "form-control search-input my-1 my-md-0", style: "min-width: 250px; max-width: 250px", placeholder: "Search keyword", area: {describedby: "button-addon"} %>
-              <div class="input-group-append">
+              <%= text_field_tag :search_text, nil, class: "form-control my-3 my-md-0 mr-2", style: "min-width: 250px; max-width: 250px", placeholder: "Search keywords" %>
               <%= hidden_field_tag :search_option, "searching" %>
-                <%= submit_tag "Search", class: "btn btn-outline-secondary button-home", id: "button-addon" %>
-              </div>
-            </div>
+              <%= submit_tag "Search", class: "btn btn-outline-success"%>
           <% end %>
         </li>
 
         <% if user_signed_in? %>
           <%# if the window has a mobile or tablet size, all the menu items will be under the hamburger menu icon %>
           <div class="d-md-none">
-            <%= render 'partials/navbar_dropdown' %>
+            <%= render 'partials/navbar_dropdown', profile_image: @profile_image %>
           </div>
 
           <%# if the window has a desktop size, all the menu items will be under the user name %>
@@ -32,7 +29,7 @@
               <%= image_tag @profile_image, class:"profile-image"%>
             <% end %>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMainMenu">
-              <%= render 'partials/navbar_dropdown' %>
+              <%= render 'partials/navbar_dropdown', profile_image: @profile_image %>
             </div>
           </div>
         <% else %>

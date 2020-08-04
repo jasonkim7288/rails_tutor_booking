@@ -1,10 +1,10 @@
 class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy, :attend, :cancel_attend]
-  before_action :authenticate_user!, only: [:attend, :cancel_attend, :new]
+  before_action :authenticate_user!, only: [:attend, :cancel_attend, :new, :my_attend_list]
 
   # GET /tutor_sessions
   def index
-    @tutor_sessions = TutorSession.all.includes(:user)
+    @tutor_sessions = TutorSession.all.order("created_at DESC").includes(:user)
   end
 
   # GET /tutor_sessions/search
@@ -82,6 +82,12 @@ class TutorSessionsController < ApplicationController
       attendance.destroy
     end
     redirect_to @tutor_session, notice: 'Attending this Tutor session has been canceled.'
+  end
+
+  # show my attend list
+  def my_attend_list
+    @tutor_sessions = current_user.tutor_sessions.order("created_at DESC").includes(:user)
+    # @tutor_sessions = current_user.attendances.Attendance.current_user.tutor_sessions.order("created_at DESC").includes(:user)
   end
 
   private

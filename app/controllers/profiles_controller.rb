@@ -7,7 +7,6 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    p @profile
     if @profile.update(profile_params)
       redirect_to root_path, notice: 'Profile was successfully updated.'
     else

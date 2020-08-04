@@ -53,14 +53,14 @@ export default class extends Controller {
   }
 
   initializeMap() {
-    this.map()
-    this.marker()
-    this.autocomplete()
+    this.getMap()
+    this.getMarker()
+    this.getAutocomplete()
   }
 
-  map() {
-    if (this._map == undefined) {
-      this._map = new google.maps.Map(this.mapTarget, {
+  getMap() {
+    if (this.map == undefined) {
+      this.map = new google.maps.Map(this.mapTarget, {
         center: new google.maps.LatLng(
           parseFloat(this.latitudeTarget.value),
           parseFloat(this.longitudeTarget.value)
@@ -68,13 +68,13 @@ export default class extends Controller {
         zoom: 17
       })
     }
-    return this._map
+    return this.map
   }
 
-  marker() {
-    if (this._marker == undefined) {
-      this._marker = new google.maps.Marker({
-        map: this.map(),
+  getMarker() {
+    if (this.marker == undefined) {
+      this.marker = new google.maps.Marker({
+        map: this.getMap(),
         anchorPoint: new google.maps.Point(0, 0)
       })
 
@@ -82,40 +82,39 @@ export default class extends Controller {
         lat: parseFloat(this.latitudeTarget.value),
         lng: parseFloat(this.longitudeTarget.value)
       }
-      this._marker.setPosition(mapLocation)
-      this._marker.setVisible(true)
+      this.marker.setPosition(mapLocation)
+      this.marker.setVisible(true)
     }
-    return this._marker
+    return this.marker
   }
 
-  autocomplete() {
-    if (this._autocomplete == undefined) {
-      this._autocomplete = new google.maps.places.Autocomplete(this.addressTarget)
-      this._autocomplete.bindTo('bounds', this.map())
-      this._autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
-      this._autocomplete.addListener('place_changed', this.locationChanged.bind(this))
+  getAutocomplete() {
+    if (this.autocomplete == undefined) {
+      this.autocomplete = new google.maps.places.Autocomplete(this.addressTarget)
+      this.autocomplete.bindTo('bounds', this.getMap())
+      this.autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
+      this.autocomplete.addListener('place_changed', this.locationChanged.bind(this))
     }
-    return this._autocomplete
+    return this.autocomplete
   }
 
   locationChanged() {
-    console.log("here!!!!!")
-    let place = this.autocomplete().getPlace()
+    let place = this.getAutocomplete().getPlace()
 
     if (!place.geometry) {
       window.alert("No details available for input: '" + place.name + "'")
       return
     }
 
-    this.map().fitBounds(place.geometry.viewport)
-    this.map().setCenter(place.geometry.location)
-    this.marker().setPosition(place.geometry.location)
-    this.marker().setVisible(true)
+    this.getMap().fitBounds(place.geometry.viewport)
+    this.getMap().setCenter(place.geometry.location)
+    this.getMarker().setPosition(place.geometry.location)
+    this.getMarker().setVisible(true)
 
     this.latitudeTarget.value = place.geometry.location.lat()
     this.longitudeTarget.value = place.geometry.location.lng()
 
-    console.log('this.map().getCenter():', this.map().getCenter().toString())
+    console.log('this.getMap().getCenter():', this.getMap().getCenter().toString())
   }
 
   preventSubmit(e) {

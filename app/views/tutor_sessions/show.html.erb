@@ -2,17 +2,34 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-lg-7">
+        <%# display place and category. Each item will go to the flitered list when clicked  %>
         <p class="mt-4 font-weight-bold">
           <%= link_to "#{TutorSession.places[@tutor_session.place]}", search_tutor_session_path(search_option: "filtering", place: @tutor_session.place, category: "all_category_for_filter") %>
           <%= " > " %>
           <%= link_to "#{TutorSession.categories[@tutor_session.category]}", search_tutor_session_path(search_option: "filtering", place: @tutor_session.place, category: @tutor_session.category) %>
           <%#= "#{TutorSession.places[@tutor_session.place]} > #{TutorSession.categories[@tutor_session.category]}" %>
         </p>
+
+        <%# this header image will be displayed only if the window size is less than 992px %>
         <div class="d-lg-none" style="background-color: white; color: black; border: none;" >
           <%= image_tag @tutor_session.header_img, class: "card-img-top", alt: "tutor session header image" %>
         </div>
+
+        <%# display title %>
         <h1 class=""><%= @tutor_session.title %></h1>
+
+        <%# display detailed description %>
         <p><%= @tutor_session.description %></p>
+
+        <div class="row align-items-center mb-3">
+          <div class="col-1 text-center show-icon">
+              <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="col-11">
+            <p class="m-0 font-weight-bold" style="font-size: 1.2em"><%= @tutor_session.user.profile.get_name %></p>
+            <p class="m-0"><%= @tutor_session.user.email %></p>
+          </div>
+        </div>
 
         <%# tutor session datetime %>
         <div class="row align-items-center mb-3">

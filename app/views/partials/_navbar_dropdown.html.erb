@@ -1,15 +1,18 @@
+<li class="dropdown-item disabled">
+  <span class="px-2"><%= image_tag profile_image, class: "dropdown-menu-profile-image" %></span>
+  <span><strong><%= current_user.profile.get_name %></strong></span>
+
+<li class="dropdown-item">
+  <%= link_to 'My attend list (As Student)', tutor_sessions_my_attend_list_path, class: "nav-link" %>
+</li>
+<li class="dropdown-divider"></li>
+
+</li>
 <li class="dropdown-item">
   <%= link_to 'Create a new session (As Tutor)', new_tutor_session_path, class: "nav-link" %>
 </li>
 <li class="dropdown-item">
   <%= link_to 'My tutor sessions (As Tutor)', '#', class: "nav-link" %>
-</li>
-<li class="dropdown-divider"></li>
-<li class="dropdown-item">
-  <%= link_to 'My attend list (As Student)', '#', class: "nav-link" %>
-</li>
-<li class="dropdown-item">
-  <%= link_to 'My saved sessions (As Student)', '#', class: "nav-link" %>
 </li>
 <li class="dropdown-divider"></li>
 
@@ -26,10 +29,10 @@
       <%= link_to 'Change password', edit_user_registration_path, class: "nav-link" %>
     </li>
     <li class="dropdown-item">
-      <%= link_to 'Notifications', '#', class: "nav-link" %>
+      <%= link_to 'Notifications', edit_noti_setting_path(current_user.noti_setting), class: "nav-link" %>
     </li>
     <li class="dropdown-item">
-      <%= link_to 'Close account', '#', class: "nav-link" %>
+      <%= link_to 'Close account', user_registration_path, data: {confirm: "Are you sure?"}, method: :delete, class: "nav-link" %>
     </li>
   </ul>
 </li>

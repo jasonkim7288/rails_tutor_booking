@@ -1,4 +1,9 @@
 class TutorSession < ApplicationRecord
+  belongs_to :user
+  has_many :comments, dependent: :destroy
+  has_many :attendances, dependent: :destroy
+  after_initialize :init
+
   include PgSearch::Model
   multisearchable against: [:title, :description, :place, :category, :address]
 
@@ -31,11 +36,6 @@ class TutorSession < ApplicationRecord
   }
 
   NOT_FOUND_PICTURE = "https://images.unsplash.com/photo-1532619187608-e5375cab36aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-
-  belongs_to :user
-  has_many :comments, dependent: :destroy
-  has_many :attendances, dependent: :destroy
-  after_initialize :init
 
   def period
     start_date = self.start_datetime.to_time.strftime("%e %B")
@@ -123,10 +123,10 @@ class TutorSession < ApplicationRecord
   private
     # set the default value when creating a new Model object
     def init
-      self.place = :offline if self.place == nil
-      self.category = :web_app if self.category == nil
-      self.longitude = 0.0 if self.longitude == nil
-      self.latitude = 0.0 if self.latitude == nil
+      self.place ||= :offline
+      self.category ||= :web_app
+      self.longitude ||= 0.0
+      self.latitude ||= 0.0
     end
 
     # when click the place on the show page, the value like :offline or :online will also be used for filtering
