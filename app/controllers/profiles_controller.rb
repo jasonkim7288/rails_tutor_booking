@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile
   before_action :authenticate_user!, only: [:edit, :update]
+  load_and_authorize_resource
 
   def edit
     @profile = current_user.profile

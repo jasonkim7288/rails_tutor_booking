@@ -60,3 +60,5 @@ gem 'devise'
 gem 'aws-sdk-s3'
 
 gem 'pg_search'
+
+gem 'cancancan'
