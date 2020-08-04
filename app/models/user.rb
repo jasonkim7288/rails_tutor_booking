@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :tutor_sessions, dependent: :destroy
   has_many :attendances, dependent: :destroy
+
+  enum role: [:normal, :admin]
 end
