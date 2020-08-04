@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'tutor_sessions/:id/attend', to: 'tutor_sessions#attend', as: 'attend_tutor_session'
   delete 'tutor_sessions/:id/cancel_attend', to: 'tutor_sessions#cancel_attend', as: 'cancel_attend_tutor_session'
   get 'tutor_sessions/my_attend_list'
+  get 'tutor_sessions/my_tutor_sessions'
   resources :tutor_sessions
   devise_for :users, controllers: {registrations: 'registrations'}
   resources :tutor_sessions do

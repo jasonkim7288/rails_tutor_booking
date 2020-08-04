@@ -86,9 +86,22 @@ class TutorSessionsController < ApplicationController
 
   # show my attend list
   def my_attend_list
-    @tutor_sessions = current_user.tutor_sessions.order("created_at DESC").includes(:user)
-    # @tutor_sessions = current_user.attendances.Attendance.current_user.tutor_sessions.order("created_at DESC").includes(:user)
+    if user_signed_in?
+      redirect_to new_user_session_path
+    else
+      # use map method to solve the N+1 queries
+      @tutor_sessions = current_user.attendances.order(created_at: :desc).includes(:tutor_sessions).map([]) {|attendence| attendence.tutor_session}
+    end
   end
+
+  def my_tutor_sessions
+    if user_signed_in?
+      redirect_to new_user_session_path
+    else
+      @tutor_sessions = current_user.tutor_sessions.order(created_at: :desc)
+    end
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
