@@ -1,4 +1,5 @@
 class CommentReflex < ApplicationReflex
+  # create comment
   def submit_new
     @comment = Comment.new(comment_params)
     @comment.user_id = element.dataset[:current_user_id].to_i
@@ -6,6 +7,7 @@ class CommentReflex < ApplicationReflex
     @comment.save
   end
 
+  # make edit page for comment
   def edit
     @edit_mode = element.dataset[:comment_id].to_i
   end

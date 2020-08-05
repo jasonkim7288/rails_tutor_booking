@@ -1,9 +1,15 @@
 class Profile < ApplicationRecord
-  include PgSearch::Model
-  multisearchable against: [:name, :about_me]
-
+  # relationship with other models
   belongs_to :user
   has_one_attached :picture
+
+  # validation
+  validates :about_me, length: {maximum: 3000}
+  
+
+  # for keyword search
+  include PgSearch::Model
+  multisearchable against: [:name, :about_me]
 
   # if the user didn't input fist name and last name, just return the email address with only id part
   def get_name

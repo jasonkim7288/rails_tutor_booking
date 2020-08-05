@@ -13,13 +13,13 @@ export default class extends Controller {
     initializeMap() {
         console.log('this.element.getAttribute("latitude"):', this.element.getAttribute("latitude"))
         console.log('this.mapTarget:', this.mapTarget)
-        this.map();
-        this.marker();
+        this.getMap();
+        this.getMarker();
     }
 
-    map() {
-        if (this._map == undefined) {
-            this._map = new google.maps.Map(this.mapTarget, {
+    getMap() {
+        if (this.map == undefined) {
+            this.map = new google.maps.Map(this.mapTarget, {
                 center: new google.maps.LatLng(
                     parseFloat(this.element.getAttribute("latitude")),
                     parseFloat(this.element.getAttribute("longitude"))
@@ -27,13 +27,13 @@ export default class extends Controller {
                 zoom: 17
             });
         }
-        return this._map;
+        return this.map;
     }
 
-    marker() {
-        if (this._marker == undefined) {
-            this._marker = new google.maps.Marker({
-                map: this.map(),
+    getMarker() {
+        if (this.marker == undefined) {
+            this.marker = new google.maps.Marker({
+                map: this.getMap(),
                 anchorPoint: new google.maps.Point(0, 0)
             });
 
@@ -41,10 +41,10 @@ export default class extends Controller {
                 lat: parseFloat(this.element.getAttribute("latitude")),
                 lng: parseFloat(this.element.getAttribute("longitude"))
             }
-            this._marker.setPosition(mapLocation);
-            this._marker.setVisible(true);
+            this.marker.setPosition(mapLocation);
+            this.marker.setVisible(true);
         }
-        return this._marker;
+        return this.marker;
     }
 
 }

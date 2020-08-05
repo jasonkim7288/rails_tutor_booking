@@ -4,7 +4,7 @@
   <% if user_signed_in? %>
     <% if current_user.id == @tutor_session.user.id %>
       <h4 class="<%= card_text %> text-center mb-4">You are the tutor</h4>
-      <%= link_to 'Notice to students', edit_tutor_session_path(@tutor_session), class: "btn btn-primary btn-block" %>
+      <%#= link_to 'Notice to students', "#", class: "btn btn-primary btn-block" %>
       <%= link_to 'Edit', edit_tutor_session_path(@tutor_session), class: "btn btn-success btn-block" %>
       <%= link_to 'Remove', @tutor_session, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-block" %>
     <% else %>

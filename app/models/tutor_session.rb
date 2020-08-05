@@ -1,12 +1,23 @@
+class CustomValidator < ActiveModel::Validator
+  def validate(record)
+    # check if start_datetime has an valid format
+    if ((record.start_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
+      record.errors[:start_datatime] << 'has an invalid format'
+    end
+    # check if end_datetime has an valid format
+    if ((record.end_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
+      record.errors[:end_datatime] << 'has an invalid format'
+    end
+    # check if start_datetime is later than end_datetime
+    if record.start_datetime && record.end_datetime && record.start_datetime.after?(record.end_datetime)
+      record.errors[:end_datatime] << 'must be later than the start date/time'
+    end
+
+  end
+end
+
 class TutorSession < ApplicationRecord
-  belongs_to :user
-  has_many :comments, dependent: :destroy
-  has_many :attendances, dependent: :destroy
-  after_initialize :init
-
-  include PgSearch::Model
-  multisearchable against: [:title, :description, :place, :category, :address]
-
+  # define enum before validation to avoid undefined variable error
   # place enum is for storing place info to model or displaying place with a select tag on the tutor booking edit page
   enum place: {
     offline: "Offline",
@@ -35,6 +46,33 @@ class TutorSession < ApplicationRecord
     prog_lang_for_filter:"Programming language"
   }
 
+  # relationship with other models
+  belongs_to :user
+  has_many :comments, dependent: :delete_all
+  has_many :attendances, dependent: :delete_all
+  after_initialize :init
+
+  # validation
+  validates :header_img, :start_datetime, :end_datetime, presence: true
+  validates :title, presence: true, length: {maximum: 300}
+  validates :description, presence: true, length: {maximum: 3000}
+  validates :place, presence: true, inclusion: {in: places.keys}
+  validates :category, presence: true, inclusion: {in: categories.keys}
+  validates :header_img, presence: true, length: {maximum: 300}
+  validates :address, length: {maximum: 1000}
+  validates :latitude, numericality: {greater_than_or_equal_to: -90, less_than_or_equal_to: 90}
+  validates :longitude, numericality: {greater_than_or_equal_to: -180, less_than_or_equal_to: 180}
+  validates :conf_url, format: {with: URI.regexp}, if: Proc.new {|record| record.conf_url.present?}, length: {maximum: 1000}
+  validates :max_students_num, presence: true, numericality: {only_integer: true, greater_than: 0, less_than: 21}
+
+  # custom validation
+  include ActiveModel::Validations
+  validates_with CustomValidator
+
+  # for keyword search
+  include PgSearch::Model
+  multisearchable against: [:title, :description, :place, :category, :address]
+
   NOT_FOUND_PICTURE = "https://images.unsplash.com/photo-1532619187608-e5375cab36aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
 
   def period
@@ -43,8 +81,9 @@ class TutorSession < ApplicationRecord
     return start_date == end_date ?start_date : "#{start_date} ~ #{end_date}"
   end
 
-  def formatted_datetime
-
+  # datetime format for the tutor_session new and edit form
+  def datetime_format
+    return "%d/%m/%Y %l:%M %p"
   end
 
   # return the proper title for filter

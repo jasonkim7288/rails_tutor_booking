@@ -22,7 +22,10 @@ class TutorSessionsController < ApplicationController
 
   # GET /tutor_sessions/1
   def show
-    @comment = @tutor_session.comments.new
+    @comment ||= @tutor_session.comments.new
+    if !@comment.errors.any?
+      @comment.body = ""
+    end
     @comments = @tutor_session.comments.order("created_at DESC").includes(:user)
     @attending = false
     if user_signed_in? && @tutor_session.attendances.where(user_id: current_user.id) != []
@@ -70,7 +73,9 @@ class TutorSessionsController < ApplicationController
 
   # when a student hit attend
   def attend
-    if Attendance.find_by(tutor_session_id: @tutor_session.id, user_id: current_user.id)
+    if Attendance.length >= @tutor_session.max_students_num
+      redirect_to @tutor_session, alert: 'This tutor session has been fully booked'
+    elsif Attendance.find_by(tutor_session_id: @tutor_session.id, user_id: current_user.id)
       redirect_to @tutor_session, alert: 'You have already booked this tutor session.'
     elsif current_user.id == @tutor_session.user_id
       redirect_to @tutor_session, alert: 'The tutor cannot book the own tutor session.'
@@ -97,7 +102,7 @@ class TutorSessionsController < ApplicationController
   # show my attend list
   def my_attend_list
     # use map method to solve the N+1 queries
-    @tutor_sessions = current_user.attendances.order(created_at: :desc).includes(:tutor_sessions).map {|attendence| attendence.tutor_session}
+    @tutor_sessions = current_user.attendances.order(created_at: :desc).includes(:tutor_session).map {|attendence| attendence.tutor_session}
   end
 
   def my_tutor_sessions
