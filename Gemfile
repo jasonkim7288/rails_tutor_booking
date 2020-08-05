@@ -62,3 +62,5 @@ gem 'aws-sdk-s3'
 gem 'pg_search'
 
 gem 'cancancan'
+
+gem 'telephone_number'
