@@ -8,11 +8,20 @@ class CustomValidator < ActiveModel::Validator
     if ((record.end_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
       record.errors[:end_datatime] << 'has an invalid format'
     end
-    # check if start_datetime is later than end_datetime
-    if record.start_datetime && record.end_datetime && record.start_datetime.after?(record.end_datetime)
-      record.errors[:end_datatime] << 'must be later than the start date/time'
-    end
 
+    if record.start_datetime
+      # check if start_datetime is later than end_datetime
+      if record.end_datetime && record.end_datetime.before?(record.start_datetime)
+        record.errors[:end_datatime] << 'must be later than the start date/time'
+      end
+      # check if start_datetime is earler than today
+      puts "++++++++++++++++++++++++++++++++++++++++++"
+      p record.start_datetime
+      p Time.zone.tomorrow
+      if record.start_datetime.before?(Time.zone.tomorrow)
+        record.errors[:start_datatime] << 'must be later than today'
+      end
+    end
   end
 end
 

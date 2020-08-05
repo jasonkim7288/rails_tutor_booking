@@ -1,11 +1,24 @@
+class PhoneNumberValidator < ActiveModel::Validator
+  def validate(record)
+    if record.phone_number != "" &&
+      (record.phone_number.length > 20 || TelephoneNumber.invalid?(record.phone_number, :AU, [:mobile, :fixed_line]))
+      record.errors[:phone_number] << 'has an invalid format of Australia'
+    end
+  end
+end
+
 class Profile < ApplicationRecord
   # relationship with other models
   belongs_to :user
   has_one_attached :picture
 
   # validation
+  validates :name, length: {maximum: 100}
   validates :about_me, length: {maximum: 3000}
-  
+
+  # custom validation to validate Australia phone number
+  include ActiveModel::Validations
+  validates_with PhoneNumberValidator
 
   # for keyword search
   include PgSearch::Model
