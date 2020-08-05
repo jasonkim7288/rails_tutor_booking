@@ -6,7 +6,6 @@
     <% if @profile.errors.any? %>
       <div id="error_explanation">
         <h4><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h4>
-
         <ul>
           <% @profile.errors.full_messages.each do |message| %>
             <li class="text-danger"><%= message %></li>

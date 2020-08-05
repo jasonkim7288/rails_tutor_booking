@@ -1,9 +1,9 @@
 <div data-controller="tutor-sessions"
     data-action= "google-maps-callback@window->tutor-sessions#initializeMap"
     data-target="tutor-sessions.wrappedWithContainer"
-    data-tutor-sessions-webIcon = "<%= image_path('header_img_web_app.png') %>"
-    data-tutor-sessions-mobileIcon = "<%= image_path('header_img_mobile_app.png') %>"
-    data-tutor-sessions-languageIcon = "<%= image_path('header_img_language.png') %>"
+    data-tutor-sessions-webIcon = "<%= asset_path('header_img_web_app.png') %>"
+    data-tutor-sessions-mobileIcon = "<%= asset_path('header_img_mobile_app.png') %>"
+    data-tutor-sessions-languageIcon = "<%= asset_path('header_img_language.png') %>"
     >
   <%= form_with model: tutor_session, local: true, class: "row mx-0" do |form| %>
     <div class="col-12 col-md-6" data-target= "tutor-sessions.entireLayout">
@@ -73,7 +73,7 @@
       <%# display header image. The value is hidden, and only image itself will be displayed %>
       <div class="form-group field">
         <%= form.label :header_img, "Header image" %> <br/>
-        <img src= "<%= image_path('header_img_web_app') %>"
+        <img src= "<%= asset_path('header_img_web_app') %>"
           alt="tutor session header image"
           data-target= "tutor-sessions.imageShown"
           class= "w-100 mb-2"
