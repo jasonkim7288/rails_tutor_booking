@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   # namespace :user do
     get 'profiles/:id/edit', to: 'profiles#edit', as: 'edit_profile'
     patch 'profiles/:id', to: 'profiles#update', as: 'profile'
-    get 'noti_settings/:id/edit', to: 'noti_settings#edit', as: 'edit_noti_setting'
-    patch 'noti_settings/:id', to: 'noti_settings#update', as: 'noti_setting'
   # end
 
   get 'tutor_sessions/search_result', to: 'tutor_sessions#search_result', as: 'search_tutor_session'

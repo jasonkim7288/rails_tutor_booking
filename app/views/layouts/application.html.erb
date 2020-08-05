@@ -31,8 +31,7 @@
     <%= render 'partials/flash' %>
     <%# all the devise view has the same wrapper, so make it DRY %>
     <% if controller_name == "confirmations" || controller_name == "passwords" || controller_name == "registrations" ||
-        controller_name == "sessions" || controller_name == "unlocks" || controller_name == "profiles" ||
-        controller_name == "noti_settings"%>
+        controller_name == "sessions" || controller_name == "unlocks" || controller_name == "profiles" %>
       <%= render 'partials/devise_wrapper' %>
     <% else %>
       <%= yield %>

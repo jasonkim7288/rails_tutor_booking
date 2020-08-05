@@ -6,14 +6,20 @@
           <h6 class="card-subtitle mb-2">
             <%# display profile image %>
             <span>
-              <%= image_tag comment.user.profile.get_profile_image(comment.user.profile.get_name), class:"comment-profile-image"%>
+              <%= image_tag comment.user.profile.get_profile_image, class:"comment-profile-image"%>
             </span>
             <%# display the name of the user who made this comment  %>
             <span class="text-info">
               <%= comment.user.profile.get_name %>
             </span>
-            <%# display created datetime with time ago format  %>
-            <span class="font-weight-light ml-4" style="font-size: 0.9em">
+            <%# display tutor icon if the tutor of this session makes a comment %>
+            <% if comment.user == tutor_session.user %>
+              <span class="ml-2">
+                <i class="fas fa-chalkboard-teacher"></i>
+              </span>
+            <% end %>
+            <%# display created datetime with time ago format. if hovering over, full datetime will be displayed  %>
+            <span class="font-weight-light ml-4" style="font-size: 0.9em" data-toggle="tooltip" data-placement="right" title="<%= comment.created_at.strftime('%e %B %Y %l:%M %p') %>">
               <%= time_ago_in_words(comment.created_at) %>
             </span>
           </h6>

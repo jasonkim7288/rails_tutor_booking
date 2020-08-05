@@ -2,6 +2,7 @@ class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy, :attend, :cancel_attend]
   before_action :authenticate_user!, only: [:attend, :cancel_attend, :new, :my_attend_list, :my_tutor_sessions]
   load_and_authorize_resource
+  skip_authorize_resource only: [:attend, :cancel_attend]
 
   # GET /tutor_sessions
   def index
@@ -69,10 +70,10 @@ class TutorSessionsController < ApplicationController
 
   # when a student hit attend
   def attend
-    if Attendance.find(tutor_session_id: @tutor_session.id, user_id: current_user.id)
-      redirect_to @tutor_session, notice: 'You have already booked this tutor session.'
+    if Attendance.find_by(tutor_session_id: @tutor_session.id, user_id: current_user.id)
+      redirect_to @tutor_session, alert: 'You have already booked this tutor session.'
     elsif current_user.id == @tutor_session.user_id
-      redirect_to @tutor_session, notice: 'The tutor cannot book the own tutor session.'
+      redirect_to @tutor_session, alert: 'The tutor cannot book the own tutor session.'
     else
       if Attendance.create(tutor_session: @tutor_session, user: current_user)
         redirect_to @tutor_session, notice: 'You are attending this tutor session.'
@@ -89,7 +90,7 @@ class TutorSessionsController < ApplicationController
       attendance.destroy
       redirect_to @tutor_session, notice: 'Attending this Tutor session has been canceled.'
     else
-      redirect_to @tutor_session, notice: 'You haven\'t attended this Tutor session'
+      redirect_to @tutor_session, alert: 'You haven\'t attended this Tutor session'
     end
   end
 
@@ -107,7 +108,7 @@ class TutorSessionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tutor_session
       # removed N+1 queries by including all related comments, users, profiles
-      @tutor_session = TutorSession.includes(comments: {user: :profile}).find(params[:id])
+      @tutor_session = TutorSession.includes(comments: {user: :profile}, attendances: {user: :profile}).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

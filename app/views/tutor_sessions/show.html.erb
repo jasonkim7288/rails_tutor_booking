@@ -21,11 +21,15 @@
         <%# display detailed description %>
         <p><%= @tutor_session.description %></p>
 
+        <%# display tutor's name and email %>
         <div class="row align-items-center mb-3">
           <div class="col-1 text-center show-icon">
               <i class="fas fa-chalkboard-teacher"></i>
           </div>
-          <div class="col-11">
+          <div class="col-3 col-sm-1 text-right p-0">
+            <%= image_tag @tutor_session.user.profile.get_profile_image, class: "tutor-profile-image" %>
+          </div>
+          <div class="col-7 col-sm-9">
             <p class="m-0 font-weight-bold" style="font-size: 1.2em"><%= @tutor_session.user.profile.get_name %></p>
             <p class="m-0"><%= @tutor_session.user.email %></p>
           </div>
@@ -36,7 +40,7 @@
           <div class="col-1 text-center show-icon">
               <i class="far fa-clock"></i>
           </div>
-          <div class="col-11">
+          <div class="col-10">
             <p class="m-0"><%= "From : #{@tutor_session.start_datetime.strftime('%A, %e %B %Y %l:%M %p')}" %></p>
             <p class="m-0"><%= "To : #{@tutor_session.end_datetime.strftime('%A, %e %B %Y %l:%M %p')}" %></p>
           </div>
@@ -59,6 +63,7 @@
 </div>
 
 <%# if it is online, display only video conference URL. If it is offline, display address and Google map  %>
+<%# this container is saperated from the upper container because it has a different background color %>
 <div class="container mt-3">
   <div class="row">
     <div class="col-12 col-lg-7">
@@ -96,9 +101,27 @@
           <div class="show-map mb-5 rounded shadow" data-target="show-map.map"></div>
         </div>
       <% end %>
+
+      <%# display who is attending %>
+      <div class="row align-items-center mb-3">
+        <div class="col-1 text-center show-icon">
+            <i class="fas fa-user-friends"></i>
+        </div>
+        <div class="col-10">
+          <% @tutor_session.attendances.each do |attendance| %>
+            <div class="row align-items-center">
+              <div class="col-1 text-center show-icon">
+                <%= image_tag attendance.user.profile.get_profile_image, class: "dropdown-menu-profile-image" %>
+              </div>
+              <div class="col-10 align-items-center">
+                <p class="m-0" style="font-size: 1.2em"><%= attendance.user.profile.get_name %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-
   <%# render new comment and comments list %>
   <%= render 'new_comment', tutor_session: @tutor_session, comment: @comment%>
   <%= render 'index_comments', tutor_session: @tutor_session, comments: @comments%>

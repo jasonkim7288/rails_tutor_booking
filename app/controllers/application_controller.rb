@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :set_user_info
-  
+
   private
     #
     # when setting the initaial avatar as a profile image, if a user didn't update his or her name, use email for user name.

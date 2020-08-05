@@ -29,9 +29,6 @@
       <%= link_to 'Change password', edit_user_registration_path, class: "nav-link" %>
     </li>
     <li class="dropdown-item">
-      <%= link_to 'Notifications', edit_noti_setting_path(current_user.noti_setting), class: "nav-link" %>
-    </li>
-    <li class="dropdown-item">
       <%= link_to 'Close account', user_registration_path, data: {confirm: "Are you sure?"}, method: :delete, class: "nav-link" %>
     </li>
   </ul>

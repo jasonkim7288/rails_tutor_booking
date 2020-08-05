@@ -55,15 +55,6 @@ ActiveRecord::Schema.define(version: 2020_08_04_111435) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "noti_settings", force: :cascade do |t|
-    t.boolean "session_changed", null: false
-    t.boolean "one_day_to_start", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_noti_settings_on_user_id"
-  end
-
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -121,7 +112,6 @@ ActiveRecord::Schema.define(version: 2020_08_04_111435) do
   add_foreign_key "attendances", "users"
   add_foreign_key "comments", "tutor_sessions"
   add_foreign_key "comments", "users"
-  add_foreign_key "noti_settings", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "tutor_sessions", "users"
 end

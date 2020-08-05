@@ -12,7 +12,7 @@ class Profile < ApplicationRecord
   end
 
   # get profile image depending on image_type
-  def get_profile_image(user_name)
+  def get_profile_image(user_name=get_name)
     if picture.attached?
       return picture
     else
