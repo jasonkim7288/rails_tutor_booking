@@ -1,6 +1,6 @@
 class PhoneNumberValidator < ActiveModel::Validator
   def validate(record)
-    if record.phone_number != "" &&
+    if record.phone_number && record.phone_number != "" &&
       (record.phone_number.length > 20 || TelephoneNumber.invalid?(record.phone_number, :AU, [:mobile, :fixed_line]))
       record.errors[:phone_number] << 'has an invalid format of Australia'
     end
@@ -8,6 +8,11 @@ class PhoneNumberValidator < ActiveModel::Validator
 end
 
 class Profile < ApplicationRecord
+  # define enum
+  # The default value is :type_initial which is 0. :type_initial uses Initaial Avatar URL, and :type_picture uses file
+  # uploaded in Amazon S3 bucket
+  enum img_type: [:type_initial, :type_picture]
+
   # relationship with other models
   belongs_to :user
   has_one_attached :picture
@@ -26,14 +31,14 @@ class Profile < ApplicationRecord
 
   # if the user didn't input fist name and last name, just return the email address with only id part
   def get_name
-    return user.email.split("@")[0] if name == nil || name ==""
-    return name
+    return self.user.email.split("@")[0] if self.name == nil || self.name ==""
+    return self.name
   end
 
-  # get profile image depending on image_type
+  # get profile image depending on img_type
   def get_profile_image(user_name=get_name)
-    if picture.attached?
-      return picture
+    if self.type_picture?
+      return self.picture
     else
       return "https://avatar.oxro.io/avatar.svg?name=#{user_name}&length=2"
     end

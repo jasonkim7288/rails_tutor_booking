@@ -8,7 +8,17 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    if @profile.update(profile_params)
+    # be ready to update by assigning params
+    @profile.assign_attributes(profile_params)
+
+    # if using file attachment, set the enum img_type to 1 (:type_picture)
+    if @profile.picture.attached?
+      @profile.img_type = :type_picture
+    else
+      @profile.img_type = :type_initial
+    end
+
+    if @profile.save
       redirect_to root_path, notice: 'Profile was successfully updated.'
     else
       render :edit
@@ -21,6 +31,6 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:name, :phone_number, :user_id, :about_me, :picture, :img_type)
+      params.require(:profile).permit(:name, :phone_number, :user_id, :about_me, :picture)
     end
 end

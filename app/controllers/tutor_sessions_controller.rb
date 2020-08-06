@@ -6,7 +6,7 @@ class TutorSessionsController < ApplicationController
 
   # GET /tutor_sessions
   def index
-    @tutor_sessions = TutorSession.all.order("created_at DESC").includes(:user)
+    @tutor_sessions = TutorSession.all.order("created_at DESC").includes(user: :profile)
   end
 
   # GET /tutor_sessions/search
@@ -26,9 +26,10 @@ class TutorSessionsController < ApplicationController
     if !@comment.errors.any?
       @comment.body = ""
     end
-    @comments = @tutor_session.comments.order("created_at DESC").includes(:user)
+    @comments = @tutor_session.comments.order("created_at DESC").includes(user: :profile)
     @attending = false
-    if user_signed_in? && @tutor_session.attendances.where(user_id: current_user.id) != []
+    # remove N+1 qeuries problem by replace find_by or where into filter method
+    if user_signed_in? && @tutor_session.attendances.filter {|attendance| attendance.user_id == current_user.id }[0] != []
       @attending = true
     end
     @remained_seats = @tutor_session.max_students_num - @tutor_session.attendances.length
@@ -112,8 +113,8 @@ class TutorSessionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tutor_session
-      # removed N+1 queries by including all related comments, users, profiles
-      @tutor_session = TutorSession.includes(comments: {user: :profile}, attendances: {user: :profile}).find(params[:id])
+      # eager loading by including all related comments, users, profiles
+      @tutor_session = TutorSession.includes(user: :profile, comments: {user: :profile}, attendances: {user: :profile}).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
