@@ -39,7 +39,7 @@ Most of aspiring developers have very little chance to present, lecture, or disc
 ### Planning layouts
 #### for mobile (iPhone 8 plus)
 
-Download <a href="docs/DevTutorBookingApp-Mobile.pdf"> PDF </a> or <a href="docs/DevTutorBookingApp_Mobile.bmpr"> Balsamiq </a> for checking the flow
+Download <a href="docs/DevTutorBookingApp-Mobile.pdf" target="_blank"> PDF </a> or <a href="docs/DevTutorBookingApp_Mobile.bmpr" target="_blank"> Balsamiq </a> for checking the flow
 
 ![Wireframe for iPhon 8 plus](docs/Wireframe_mobile.png)
 
