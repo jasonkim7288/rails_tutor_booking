@@ -37,15 +37,21 @@ Most of aspiring developers have very little chance to present, lecture, or disc
 
 # Screenshots
 ### Planning layouts
-for mobile (iPhone 8 plus)
+#### for mobile (iPhone 8 plus)
+
+<a href="docs/DevTutorBookingApp-Mobile.pdf">Download PDF for checking the flow</a>
 
 ![Wireframe for iPhon 8 plus](docs/Wireframe_mobile.png)
 
-for tablet (iPad)
+#### for tablet (iPad)
+
+<a href="docs/DevTutorBookingApp-Tablet.pdf">Download PDF for checking the flow</a>
 
 ![Wireframe for iPad pro](docs/Wireframe_tablet.png)
 
-for desktop
+#### for desktop
+
+<a href="docs/DevTutorBookingApp-Desktop.pdf">Download PDF for checking the flow</a>
 
 ![Wireframe for](docs/Wireframe_desktop.png)
 
@@ -57,6 +63,11 @@ for desktop
 
 #### Desktop screenshots
 
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# ERD
+![ERD](docs/ERD_DevTutorBooking.png)
 
 [Go back](#table-of-contents)<br /><br /><br />
 
