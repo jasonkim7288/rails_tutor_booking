@@ -1,26 +1,48 @@
-<h1 align="center"> Tutor booking
+<h1 align="center"> Tutor booking app
 </h1>
 
 # Table of Contents
 
-* [Links](#Links)
+* [Identification](#Identification)
+* [Purpose](#Purpose)
+* [Deployed app link](#Deployed-app-link)
+* [GitHub repository link](#GitHub-repository-link)
+* [Description](#Description)
+* [Purpose](#Purpose)
+* [Purpose](#Purpose)
+* [Purpose](#Purpose)
+* [Purpose](#Purpose)
 * [Purpose](#Purpose)
 * [Functionality and Features](#Functionality-and-Features)
 * [Sitemap](#Sitemap)
-* [Screenshots](#Screenshots)
+* [Wireframes](#Wireframes)
 * [Target audience](#Target-audience)
 * [Tech stack](#Tech-stack)
 <br /><br /><br />
 
-# Links
+# Identification
 
-Published portfolio website :
-
-GitHub repository :  https://github.com/jasonkim7288/rails_tutor_booking<br /><br />
 
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Purpose
+
+
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# Deployed app link
+
+Published website : https://devtutorbooking.herokuapp.com/
+
+[Go back](#table-of-contents)<br /><br /><br />
+
+# GitHub repository link
+
+GitHub repository :  https://github.com/jasonkim7288/rails_tutor_booking
+
+
+# Description
 Most of aspiring developers have very little chance to present, lecture, or discuss on their own projects to others. Dev Tutor Booking app helps developers organise online or offline meetings with small numbers of students so that they can improve their development skills by communicating and helping each other.
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -31,27 +53,27 @@ Most of aspiring developers have very little chance to present, lecture, or disc
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Sitemap
+![](docs/TutorBookingSitemap.png)
 
 
 [Go back](#table-of-contents)<br /><br /><br />
 
-# Screenshots
-### Planning layouts
-#### for mobile (iPhone 8 plus)
+# Wireframes
+## for mobile (iPhone 8 plus)
 
-Download <a href="docs/DevTutorBookingApp-Mobile.pdf" target="_blank"> PDF </a> or <a href="docs/DevTutorBookingApp_Mobile.bmpr" target="_blank"> Balsamiq </a> for checking the flow
+Download <a href="docs/DevTutorBookingApp_Mobile.bmpr"> Balsamiq </a> or <a href="docs/DevTutorBookingApp-Mobile.pdf"> PDF </a> for checking the flow
 
 ![Wireframe for iPhon 8 plus](docs/Wireframe_mobile.png)
 
-#### for tablet (iPad)
+## for tablet (iPad)
 
-<a href="docs/DevTutorBookingApp-Tablet.pdf">Download PDF for checking the flow</a>
+Download <a href="docs/DevTutorBookingApp_Tablet.bmpr"> Balsamiq </a> or <a href="docs/DevTutorBookingApp-Tablet.pdf"> PDF </a> for checking the flow
 
 ![Wireframe for iPad pro](docs/Wireframe_tablet.png)
 
-#### for desktop
+## for desktop
 
-<a href="docs/DevTutorBookingApp-Desktop.pdf">Download PDF for checking the flow</a>
+Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a href="docs/DevTutorBookingApp-Desktop.pdf"> PDF </a> for checking the flow
 
 ![Wireframe for](docs/Wireframe_desktop.png)
 
