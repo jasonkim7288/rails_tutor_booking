@@ -10,7 +10,7 @@
       <%# display error if any %>
       <% if tutor_session.errors.any? %>
         <div id="error_explanation">
-          <h4><%= pluralize(tutor_session.errors.count, "error") %> prohibited this tutor session from being saved:</h4>
+          <h4 class="text-info"><%= pluralize(tutor_session.errors.count, "error") %> prohibited this tutor session from being saved:</h4>
 
           <ul>
             <% tutor_session.errors.full_messages.each do |message| %>

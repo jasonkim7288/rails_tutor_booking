@@ -13,7 +13,7 @@
               <div class="card-body px-0 py-2">
                 <h6 class="card-title"><%= truncate tutor_session.title, length: 60 %></h6>
                 <p class="card-text card-tutor"><%= tutor_session.user.profile.get_name %></p>
-                <p class="card-text"><%= TutorSession.places[tutor_session.place] %></p>
+                <p class="card-text" style="font-size: 0.98em;"><%= "#{TutorSession.places[tutor_session.place]} > #{TutorSession.categories[tutor_session.category]}" %></p>
                 <p class="card-text"><%= tutor_session.start_datetime.strftime('%d/%m/%Y %l:%M %p') %></p>
               </div>
             <% end %>

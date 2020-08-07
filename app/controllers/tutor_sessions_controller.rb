@@ -6,7 +6,7 @@ class TutorSessionsController < ApplicationController
 
   # GET /tutor_sessions
   def index
-    @tutor_sessions = TutorSession.all.order("created_at DESC").includes(user: :profile)
+    @tutor_sessions = TutorSession.order("created_at DESC").limit(12).includes(user: :profile)
   end
 
   # GET /tutor_sessions/search
@@ -29,8 +29,11 @@ class TutorSessionsController < ApplicationController
     @comments = @tutor_session.comments.order("created_at DESC").includes(user: :profile)
     @attending = false
     # remove N+1 qeuries problem by replace find_by or where into filter method
-    if user_signed_in? && @tutor_session.attendances.filter {|attendance| attendance.user_id == current_user.id }[0] != []
-      @attending = true
+    if user_signed_in?
+      attendance = @tutor_session.attendances.filter {|attendance| attendance.user_id == current_user.id }[0]
+      if attendance && attendance != []
+        @attending = true
+      end
     end
     @remained_seats = @tutor_session.max_students_num - @tutor_session.attendances.length
   end
@@ -74,10 +77,13 @@ class TutorSessionsController < ApplicationController
 
   # when a student hit attend
   def attend
-    if Attendance.length >= @tutor_session.max_students_num
+    # if the attendance is full, no more attendance
+    if @tutor_session.attendances.length >= @tutor_session.max_students_num
       redirect_to @tutor_session, alert: 'This tutor session has been fully booked'
+    # check if the current user already attends this tutor session
     elsif Attendance.find_by(tutor_session_id: @tutor_session.id, user_id: current_user.id)
       redirect_to @tutor_session, alert: 'You have already booked this tutor session.'
+    # tutor cannot book
     elsif current_user.id == @tutor_session.user_id
       redirect_to @tutor_session, alert: 'The tutor cannot book the own tutor session.'
     else

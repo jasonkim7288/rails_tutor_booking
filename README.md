@@ -37,17 +37,17 @@ Most of aspiring developers have very little chance to present, lecture, or disc
 
 # Screenshots
 ### Planning layouts
-for phone (iPhone 8 plus)
+for mobile (iPhone 8 plus)
 
-![Wireframe for iPhon 8 plus]()
+![Wireframe for iPhon 8 plus](docs/Wireframe_mobile.png)
 
-for tablet (iPad pro)
+for tablet (iPad)
 
-![Wireframe for iPad pro]()
+![Wireframe for iPad pro](docs/Wireframe_tablet.png)
 
 for desktop
 
-![Wireframe for]()
+![Wireframe for](docs/Wireframe_desktop.png)
 
 ### Screenshots
 

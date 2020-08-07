@@ -2,7 +2,7 @@
   <%= form_with model: [tutor_session, comment], class: "my-5", data: {reflex: "submit->CommentReflex#submit_new", current_user_id: current_user.id, current_tutor_session_id: tutor_session.id} do |form| %>
     <% if comment.errors.any? %>
       <div id="error_explanation" >
-          <h4><%= pluralize(comment.errors.count, "error") %> prohibited this post from being saved:</h4>
+          <h4 class="text-info"><%= pluralize(comment.errors.count, "error") %> prohibited this post from being saved:</h4>
           <ul>
             <% comment.errors.full_messages.each do |message| %>
               <li class="text-danger"><%= message %></li>

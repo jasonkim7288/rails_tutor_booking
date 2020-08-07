@@ -3,9 +3,10 @@
 </div>
 <div class="card-body">
   <%= form_with(model: @profile, local: true) do |form| %>
+    <%# error message for the wrong input %>
     <% if @profile.errors.any? %>
       <div id="error_explanation">
-        <h4><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h4>
+        <h4 class="text-info"><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h4>
         <ul>
           <% @profile.errors.full_messages.each do |message| %>
             <li class="text-danger"><%= message %></li>
@@ -14,27 +15,31 @@
       </div>
     <% end %>
 
+    <%# profile image, name, email, and image file upload %>
     <div class="form-group field">
       <div class="row">
-        <%= image_tag @profile_image, class: "col-4", width: 100, style: "border-radius: 50%;"%>
-        <div class="col-8">
-          <h4 class="row"><%= @profile.get_name %></h4>
-          <h5 class="row mb-4 font-weight-normal"><%= @profile.user.email %></h5>
-          <%= form.file_field :picture, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/webp',  class:"row" %>
+        <%= image_tag @profile_image, class: "col-8 col-sm-4 profile-image large-profile-image" %>
+        <div class="col-12 col-sm-8">
+          <h4 class="row pl-3 pl-sm-0"><%= @profile.get_name %></h4>
+          <h5 class="row pl-3 pl-sm-0 mb-sm-4 font-weight-normal"><%= @profile.user.email %></h5>
+          <%= form.file_field :picture, accept: 'image/png,image/gif,image/jpeg,image/jpg,image/webp',  class:"row pl-3 pl-sm-0" %>
         </div>
       </div>
     </div>
 
+    <%# input full name %>
     <div class="form-group field">
       <%= form.label :name %>
       <%= form.text_field :name, class: "form-control" %>
     </div>
 
-     <div class="form-group field">
+    <%# input phone number %>
+    <div class="form-group field">
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, class: "form-control" %>
     </div>
 
+    <%# input about me %>
     <div class="form-group field">
       <%= form.label :about_me %>
       <%= form.text_area :about_me, class: "form-control", rows: "5" %>

@@ -14,11 +14,10 @@ class CustomValidator < ActiveModel::Validator
       if record.end_datetime && record.end_datetime.before?(record.start_datetime)
         record.errors[:end_datatime] << 'must be later than the start date/time'
       end
-      # check if start_datetime is earler than today
-      puts "++++++++++++++++++++++++++++++++++++++++++"
-      p record.start_datetime
-      p Time.zone.tomorrow
-      if record.start_datetime.before?(Time.zone.tomorrow)
+      # check if start_datetime is earler than tomorrow's beginning of day
+      # if the current datetime is Thu, 06 Aug 2020 21:00:00 AEST +10:00, tomorrow's beginning of day is
+      # Fri, 07 Aug 2020 00:00:00 AEST +10:00, so start_datetime must be after that time
+      if record.start_datetime.before?(Time.zone.tomorrow.beginning_of_day)
         record.errors[:start_datatime] << 'must be later than today'
       end
     end
@@ -68,10 +67,10 @@ class TutorSession < ApplicationRecord
   validates :place, presence: true, inclusion: {in: places.keys}
   validates :category, presence: true, inclusion: {in: categories.keys}
   validates :header_img, presence: true, length: {maximum: 300}
-  validates :address, length: {maximum: 1000}
+  validates :address, length: {maximum: 300}
   validates :latitude, numericality: {greater_than_or_equal_to: -90, less_than_or_equal_to: 90}
   validates :longitude, numericality: {greater_than_or_equal_to: -180, less_than_or_equal_to: 180}
-  validates :conf_url, format: {with: URI.regexp}, if: Proc.new {|record| record.conf_url.present?}, length: {maximum: 1000}
+  validates :conf_url, format: {with: URI.regexp}, if: Proc.new {|record| record.conf_url.present?}, length: {maximum: 300}
   validates :max_students_num, presence: true, numericality: {only_integer: true, greater_than: 0, less_than: 21}
 
   # custom validation

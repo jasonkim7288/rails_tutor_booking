@@ -27,7 +27,7 @@
               <i class="fas fa-chalkboard-teacher"></i>
           </div>
           <div class="col-3 col-sm-1 text-right p-0">
-            <%= image_tag @tutor_session.user.profile.get_profile_image, class: "tutor-profile-image" %>
+            <%= image_tag @tutor_session.user.profile.get_profile_image, class: "profile-image medium-profile-image" %>
           </div>
           <div class="col-7 col-sm-9">
             <p class="m-0 font-weight-bold" style="font-size: 1.2em"><%= @tutor_session.user.profile.get_name %></p>
@@ -111,7 +111,7 @@
           <% @tutor_session.attendances.each do |attendance| %>
             <div class="row align-items-center">
               <div class="col-1 text-center show-icon">
-                <%= image_tag attendance.user.profile.get_profile_image, class: "dropdown-menu-profile-image" %>
+                <%= image_tag attendance.user.profile.get_profile_image, class: "profile-image small-profile-image" %>
               </div>
               <div class="col-10 align-items-center">
                 <p class="m-0" style="font-size: 1.2em"><%= attendance.user.profile.get_name %></p>
