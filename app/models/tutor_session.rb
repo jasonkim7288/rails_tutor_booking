@@ -112,7 +112,7 @@ class TutorSession < ApplicationRecord
     # PgSearch::Multisearch.rebuild(TutorSession)
 
     result_index = Set[]
-    search_document = PgSearch.multisearch(param_search_text).limit(50)
+    search_document = PgSearch.multisearch(param_search_text).limit(50).order("created_at DESC")
     search_document.each do |document|
       case document.searchable_type
       when "TutorSession"
@@ -153,13 +153,13 @@ class TutorSession < ApplicationRecord
     param_category = self.category_to_category_for_filter(param_category.to_sym)
 
     if param_place == :any_place_for_filter && param_category == :all_category_for_filter
-      return self.all.includes(:user)
+      return self.all.includes(:user).order("created_at DESC")
     elsif param_place != :any_place_for_filter && param_category == :all_category_for_filter
-      return self.where(place: place_for_filter_to_place(param_place)).includes(:user)
+      return self.where(place: place_for_filter_to_place(param_place)).includes(:user).order("created_at DESC")
     elsif param_place == :any_place_for_filter && param_category != :all_category_for_filter
-      return self.where(category: category_for_filter_to_category(param_category)).includes(:user)
+      return self.where(category: category_for_filter_to_category(param_category)).includes(:user).order("created_at DESC")
     else
-      return self.where(place: place_for_filter_to_place(param_place), category: category_for_filter_to_category(param_category)).includes(:user)
+      return self.where(place: place_for_filter_to_place(param_place), category: category_for_filter_to_category(param_category)).includes(:user).order("created_at DESC")
     end
   end
 
