@@ -178,7 +178,7 @@ tempusdominus-bootstrap-4 is a node package that provides pretty date and time p
 ![datetime picker](docs/datetime_picker_2.png)
 
 ### Devise and Cancancan gem
-Devise gem is for authentication which takes care of log in, sign up, change password, 
+Devise is a powerful gem for authentication which takes care of log in, sign up, change and reset password, cancel account including encrypting and decrypting the password. It includes controller, view, and even model
 
 
 [Go back](#table-of-contents)<br /><br /><br />
