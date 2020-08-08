@@ -168,7 +168,7 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Third party services
-Tutor Booking app makes use of a variety of third party servies such as Google Maps/Places API, tempusdominus-bootstrap-4, Devise gem, Cancancan gem, and pg_search gem
+Tutor Booking app makes use of a variety of third party servies such as Google Maps/Places API, tempusdominus-bootstrap-4, Devise gem, Cancancan gem, and avatar.oxro.io API
 ### Google Maps/Places API
 Google Maps/Places API is supported by Google Cloud Platform and useful for typing address and displaying dynamic map image. Most of them are made with Javascript and able to be well implemented with Stimulus JS for Ruby on Rails. Because initialising Google Maps api takes time, there needs to be a callback function connected between turbolink's javascript including code and the actual element of the page. Dynamic map api needs an instance of google.maps.Map class and google.maps.Marker class, and autocomplete api needs google.maps.places.Autocomplete class. Whenever user changed the address by autocomplete, Autocomplete class instance figures out the boundary size and GPS coordinates, so Map and Marker instance need to change their boundary size and GPS coordiates through the source code.
 ### tempusdominus-bootstrap-4
@@ -178,12 +178,41 @@ tempusdominus-bootstrap-4 is a node package that provides pretty date and time p
 ![datetime picker](docs/datetime_picker_2.png)
 
 ### Devise and Cancancan gem
-Devise is a powerful gem for authentication which takes care of log in, sign up, change and reset password, cancel account including encrypting and decrypting the password. It includes controller, view, and even model
+Devise is a powerful gem for authentication which takes care of log in, sign up, change and reset password, cancel account including encrypting and decrypting the password. It includes controller, view, and even model, and can prevent unregistered user from entering the pages which are not supposed to be accessed for them.<br />
+Cancancan gem is for authorization which allows certain actions to only specific users. The main function of Cancancan gem for the Tutor Booking app is allowing users to edit and delete the tutor sessions only if they are the ones who create them.
 
+### Avatar REST API
+avatar.oxro.io REST API is an opensource avatar generator API which is based on the initials of the name given as a parameter.
+
+![avatar api](docs/avatar_api.png)
 
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Models
+### User
+User has one Profile. Whenever User instance is successfully created, Profile will be also created<br />
+User has many Comments on each TutorSession.<br />
+User has many TutorSessions as a tutor.<br />
+User has many Attendances.<br />
+### Profile
+Profile belongs to User.<br />
+Profile has one attaced picture which is related to Active Storage and links to the Amazon S3 Bucket.<br />
+### TutorSession
+TutorSession belongs to User who created.<br/>
+TutorSession has many Comments which Users have created.<br />
+### Comment
+Comment belongs to TutorSession<br />
+Comment belongs to User<br />
+### Attendance
+Attendance belongs to TutorSession<br />
+Attendance belongs to User<br />
+### Ability
+Ability model defines authorization.
+All Users including guests can read all TutorSessions and Comments
+All Administrators can create, read, update, and delete all TutorSessions and Comments
+TutorSession can be updated and deleted by only the User who created it.
+
+
 
 
 [Go back](#table-of-contents)<br /><br /><br />

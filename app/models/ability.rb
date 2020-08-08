@@ -11,6 +11,7 @@ class Ability
       # any action for TutorSession and Profile is allowed only for the owner
       can :manage, TutorSession, user_id: user.id
       can :manage, Profile, user_id: user.id
+      can :manage, Comment, user_id: user.id
       # admin can do everything
       if user.admin?
         can :manage, :all
