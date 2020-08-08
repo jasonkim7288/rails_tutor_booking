@@ -2,7 +2,7 @@ class TutorSessionsController < ApplicationController
   before_action :set_tutor_session, only: [:show, :edit, :update, :destroy, :attend, :cancel_attend]
   before_action :authenticate_user!, only: [:attend, :cancel_attend, :new, :my_attend_list, :my_tutor_sessions]
   load_and_authorize_resource
-  skip_authorize_resource only: [:attend, :cancel_attend]
+  skip_authorize_resource only: [:attend, :cancel_attend, :search_result]
 
   # GET /tutor_sessions
   def index
