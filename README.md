@@ -7,6 +7,12 @@
 * [Deployed app link](#Deployed-app-link)
 * [GitHub repository link](#GitHub-repository-link)
 * [Description](#Description)
+  * [Purpose](#Purpose)
+  * [Functionality / features](#Functionality-/-features)
+  * [Sitemap](#Sitemap)
+  * [Screenshots](#Screenshots)
+  * [Target audience](#Target-audience)
+  * [Tech stack](#Tech-stack)
 * [User stories](#User-stories)
 * [Wireframes](#Wireframes)
 * [ERD](#ERD)
@@ -40,6 +46,8 @@ GitHub repository link :  https://github.com/jasonkim7288/rails_tutor_booking
 ## Purpose
 Tutor Booking app is a development tutor sessions booking app for any web/mobile developer or student to organize a session to have a presentation, give a lecture, or have a discussion with other students about their project or some programming language subject whether it is online or offline. These tutor sessions will make them help each other and become better developers.
 
+[Go back](#table-of-contents)<br /><br /><br />
+
 ## Functionality / features
 Tutor Booking app is fully responsive from mobile to desktop and uses Google Maps API so that users can easily check out the place where the session will take place.
 ### Home page
@@ -59,8 +67,12 @@ Users can always find their suitable sessions by the search function on the navb
 ### Edit profile page
 Once a user signs up, it will lead to the edit profile page. The user have 3 choices to have a profile icon. If the user didn't update his or her name on the edit profile page, the profile icon will refer to the email address and make email's initial-based icon. If the user updated his or her name, it will make name's initial-based icon. If the user uploaded image file, it will refer to the uploaded image. If the user updated his or her 'about me', other users can also search tutor sessions by this information.
 
+[Go back](#table-of-contents)<br /><br /><br />
+
 ## Sitemap
 ![](docs/TutorBookingSitemap.png)
+
+[Go back](#table-of-contents)<br /><br /><br />
 
 ## Screenshots
 #### Home
@@ -77,8 +89,12 @@ Once a user signs up, it will lead to the edit profile page. The user have 3 cho
 #### Edit profile
 ![Screenshot for edit profile](docs/screenshot_edit_profile.png)
 
+[Go back](#table-of-contents)<br /><br /><br />
+
 ## Target audience
 Tutor Booking app is for any student who wants to be a web/mobile app developer and for any current web/mobile app developer who wants to help students.
+
+[Go back](#table-of-contents)<br /><br /><br />
 
 ## Tech stack
 - Ruby on Rails : front end and back end source code
@@ -98,7 +114,22 @@ Tutor Booking app is for any student who wants to be a web/mobile app developer 
 [Go back](#table-of-contents)<br /><br /><br />
 
 # User stories
-Dev Tutor Booking app helps developers organise online or offline meetings with small numbers of students so that they can improve their development skills by communicating and helping each other.
+Users can be both students and tutors
+
+## Users (Both students and tutors)
+- As a user, I want to sign up and log in, so I can create or attend tutoring sessions.
+- As a user, I want to log out, change password, and cancel my account, so I can keep my account secure.
+- As a user, I want to see a summary of tutoring information on the list, so I can check which tutoring session suits me or edit my tutoring session.
+- As a user, I want to see detailed information about each tutoring session , so I can decide if I am going to attend it, or I can edit the tutoring information if I own it.
+- As a user, I want to search for tutoring sessions by keyword, place, or category, so I can filter the tutor session that I would like to attend.
+- As a user, I want to comment for each tutoring session, so I can ask or answer some questions about this tutoring session.
+## Tutors
+- As a tutor, I want to create a tutoring session, so I can organise the tutoring session.
+- As a tutor, I want to edit the tutoring session I made, so I can let the students know if there are some changes about the tutoring.
+- As a tutor, I want to see all the tutoring sessions I made, so I can keep track of them.
+## Students
+- As a student, I want to be able to attend each tutor session, so I can participate in this tutor session.
+- As a student, I want to see all the tutor sessions that I have decided to attend, so I can check the schedule and cancel the tutor session.
 
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -137,8 +168,17 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Third party services
-Tutor Booking app makes use of a variety of third party servies such as Google Maps API, Google Places API, 
-### Google Maps API
+Tutor Booking app makes use of a variety of third party servies such as Google Maps/Places API, tempusdominus-bootstrap-4, Devise gem, Cancancan gem, and pg_search gem
+### Google Maps/Places API
+Google Maps/Places API is supported by Google Cloud Platform and useful for typing address and displaying dynamic map image. Most of them are made with Javascript and able to be well implemented with Stimulus JS for Ruby on Rails. Because initialising Google Maps api takes time, there needs to be a callback function connected between turbolink's javascript including code and the actual element of the page. Dynamic map api needs an instance of google.maps.Map class and google.maps.Marker class, and autocomplete api needs google.maps.places.Autocomplete class. Whenever user changed the address by autocomplete, Autocomplete class instance figures out the boundary size and GPS coordinates, so Map and Marker instance need to change their boundary size and GPS coordiates through the source code.
+### tempusdominus-bootstrap-4
+tempusdominus-bootstrap-4 is a node package that provides pretty date and time picker with Bootstrap css framework. It is made of css and javascript and also needs other packages such as fullcalendar, jquery, moment, and moment-timezone.
+
+![datetime picker](docs/datetime_picker_1.png)
+![datetime picker](docs/datetime_picker_2.png)
+
+### Devise and Cancancan gem
+Devise gem is for authentication which takes care of log in, sign up, change password, 
 
 
 [Go back](#table-of-contents)<br /><br /><br />

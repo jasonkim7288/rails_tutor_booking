@@ -52,12 +52,14 @@ export default class extends Controller {
     }
   }
 
+  // get all the instance of class for Maps
   initializeMap() {
     this.getMap()
     this.getMarker()
     this.getAutocomplete()
   }
 
+  // create or get an instance of Map class
   getMap() {
     if (this.map == undefined) {
       this.map = new google.maps.Map(this.mapTarget, {
@@ -71,6 +73,7 @@ export default class extends Controller {
     return this.map
   }
 
+  // create or get an instance of Marker class which shows the actual location with the red teardrop-shaped icon
   getMarker() {
     if (this.marker == undefined) {
       this.marker = new google.maps.Marker({
@@ -88,6 +91,7 @@ export default class extends Controller {
     return this.marker
   }
 
+  // create an instanace of Autocomplete class and link to the input text,
   getAutocomplete() {
     if (this.autocomplete == undefined) {
       this.autocomplete = new google.maps.places.Autocomplete(this.addressTarget)
@@ -98,6 +102,7 @@ export default class extends Controller {
     return this.autocomplete
   }
 
+  // Whenever the input text value changes, this locationChange() method is called
   locationChanged() {
     let place = this.getAutocomplete().getPlace()
 
@@ -117,6 +122,7 @@ export default class extends Controller {
     console.log('this.getMap().getCenter():', this.getMap().getCenter().toString())
   }
 
+  // prevent submit when the user hits the enter key after inputting text in the address
   preventSubmit(e) {
     if (e.key == "Enter") {
       e.preventDefault()

@@ -10,6 +10,7 @@ export default class extends Controller {
         }
     }
 
+    // get all the instance of class for Maps
     initializeMap() {
         console.log('this.element.getAttribute("latitude"):', this.element.getAttribute("latitude"))
         console.log('this.mapTarget:', this.mapTarget)
@@ -17,6 +18,7 @@ export default class extends Controller {
         this.getMarker();
     }
 
+    // create or get an instance of Map class
     getMap() {
         if (this.map == undefined) {
             this.map = new google.maps.Map(this.mapTarget, {
@@ -30,6 +32,7 @@ export default class extends Controller {
         return this.map;
     }
 
+    // create or get an instance of Marker class which shows the actual location with the red teardrop-shaped icon
     getMarker() {
         if (this.marker == undefined) {
             this.marker = new google.maps.Marker({
