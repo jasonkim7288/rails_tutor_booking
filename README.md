@@ -13,8 +13,9 @@
 * [High-level components](#High-level-components)
 * [Third party services](#Third-party-services)
 * [Models](#Models)
-* [Database relations](#Database-relaqtions)
+* [Database relations](#Database-relations)
 * [Database schema design](#Database-schema-design)
+* [Task allocation and tracking](#Task-allocation-and-tracking)
 <br /><br /><br />
 
 # A problem that needs solving
@@ -42,7 +43,7 @@ Tutor Booking app is a development tutor sessions booking app for any web/mobile
 ## Functionality / features
 Tutor Booking app is fully responsive from mobile to desktop and uses Google Maps API so that users can easily check out the place where the session will take place.
 ### Home page
-The first screen when users enter this Tutor Booking App is the motto "Helping each other will make you great developers" which is the purpose of this app. There is a search field on the navbar which users can search tutor sessions by tutor's name, tutor's details, comments, tutor session's details. In the middle of the page, users can filter the tutor sessions list by their place type and category. At the bottom of this page, there will be 12 recent tuto sessions list.
+The first screen when users enter this Tutor Booking App show the motto, "Helping each other will make you great developers", which is the purpose of this app. There is a search field on the navbar which users can search tutor sessions by tutor's name, tutor's details, comments, tutor session's details. In the middle of the page, users can filter the tutor sessions list by their place type and category. At the bottom of this page, there will be 12 recent tuto sessions list.
 ### Tutor session detail page
 On top of the tutor session detail page, there is a category for the current tutor session which is clickable and leads to the related filtered tutor sessions list. Users can check the title, description, the tutor's information, schedule, place or video conference URL, participants, the number of seats remained, etc. They are also able to create, edit, and delete comments on the current tutor session.
 
@@ -90,8 +91,8 @@ Tutor Booking app is for any student who wants to be a web/mobile app developer 
 - AWS S3 bucket : cloud service for the profile image upload
 - tempusdominus-bootstrap-4 : dateTime picker package with bootstrap to manage start and end datetime of the tutor session
 - Devise : authentication gem
-- cancancan : authorization gem. All users including guests can read all the tutor sessons list. Registered users can create, edit, delete their own sessions only. Administrators can manage all tutor sessions no matter who made the tutor sessions.
-- pg_search : PostgreSQL full text search gem to search the tutor sessions by tutor's name, tutor's details, comments, tutor session's details
+- cancancan : authorization gem. All users including guests can read all the tutor sessons list. Registered users can create, edit, delete their own sessions only. Administrators can manage all the tutor sessions no matter who made them.
+- pg_search : PostgreSQL full text search gem to search the tutor sessions by tutor's name, tutor's details, comments, and tutor session's details
 - telephone_number : localized phone number verification gem
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -136,6 +137,8 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Third party services
+Tutor Booking app makes use of a variety of third party servies such as Google Maps API, Google Places API, 
+### Google Maps API
 
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -154,3 +157,22 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 
 
 [Go back](#table-of-contents)<br /><br /><br />
+
+
+# Task allocation and tracking
+### Trello web site : https://trello.com/b/uZrLbHs9/dev-tutor-booking-app
+### Day 1 planning
+![Day 1](docs/2020-07-20_trello_progress.png)
+
+### Week 1
+![Week 1](docs/2020-07-26_trello_progress.png)
+
+### Week 2
+![Week 2](docs/2020-08-02_trello_progress.png)
+
+### Week 3
+![Week 3](docs/2020-08-08_trello_progress.png)
+
+
+[Go back](#table-of-contents)<br /><br /><br />
+
