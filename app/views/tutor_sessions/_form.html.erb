@@ -80,7 +80,31 @@
           style= "max-width: 523px;"
         >
         <%= form.hidden_field :header_img, data: { target: "tutor-sessions.headerImg" } %>
+        <div class="form-inline field">
+          <input type="text" class="form-control mr-3 mb-2" data-target="tutor-sessions.searchString" />
+          <button type="button" class="btn btn-primary form-control" data-action="click->tutor-sessions#handle_search">Image Search with Unsplash</button>
+        </div>
+        <div class="row">
+          <%= link_to "#", class: "p-3 col-6 col-md-4" do %>
+            <img src="" alt="" data-target= "tutor-sessions.imgList1" class="shadow border rounded-sm" style="width:100%;" data-action="click->tutor-sessions#handle_select_img_1">
+          <% end %>
+          <%= link_to "#", class: "p-3 col-6 col-md-4" do %>
+            <img src="" alt="" data-target= "tutor-sessions.imgList2" class="shadow border rounded-sm" style="width:100%;" data-action="click->tutor-sessions#handle_select_img_2">
+          <% end %>
+          <%= link_to "#", class: "p-3 col-6 col-md-4" do %>
+            <img src="" alt="" data-target= "tutor-sessions.imgList3" class="shadow border rounded-sm" style="width:100%;" data-action="click->tutor-sessions#handle_select_img_3">
+          <% end %>
+          <%= link_to "#", class: "p-3 col-6 col-md-4" do %>
+            <img src="" alt="" data-target= "tutor-sessions.imgList4" class="shadow border rounded-sm" style="width:100%;" data-action="click->tutor-sessions#handle_select_img_4">
+          <% end %>
+          <%= link_to "#", class: "p-3 col-6 col-md-4" do %>
+            <img src="" alt="" data-target= "tutor-sessions.imgList5" class="shadow border rounded-sm" style="width:100%;" data-action="click->tutor-sessions#handle_select_img_5">
+          <% end %>
+        </div>
+
       </div>
+
+
 
       <%# display description %>
       <div class="form-group field">

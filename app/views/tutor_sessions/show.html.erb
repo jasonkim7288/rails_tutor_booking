@@ -53,7 +53,7 @@
 
       <%# card style information which is about header image, the number of seats left, attend button, edit button, etc %>
       <%# this card style information will be displayed only if the window size is greater than or equal to 992px %>
-      <div class="d-none d-lg-block col-lg-4 card single-session-card shadow"
+      <div class="d-none d-lg-block col-lg-4 card single-session-card shadow p-0"
           style="background-color: white; color: black; border: none;" >
         <%= image_tag @tutor_session.header_img, class: "card-img-top", alt: "tutor session header image" %>
         <%= render 'show_card', card_body: "card-body", card_text: "card-text", attending: @attending, remained_seats: @remained_seats %>

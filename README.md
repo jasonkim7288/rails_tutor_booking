@@ -131,10 +131,7 @@ Users can be both students and tutors
 - As a student, I want to be able to attend each tutor session, so I can participate in this tutor session.
 - As a student, I want to see all the tutor sessions that I have decided to attend, so I can check the schedule and cancel the tutor session.
 
-
 [Go back](#table-of-contents)<br /><br /><br />
-
-
 
 # Wireframes
 ## for mobile (iPhone 8 plus)
@@ -163,6 +160,8 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 [Go back](#table-of-contents)<br /><br /><br />
 
 # High-level components
+Tutor Booking app is 
+
 
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -221,8 +220,8 @@ Comment can be updated and deleted by only the User who created it.
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Database schema design
-Almost every table matches the ERD except for active_storage_attachments, active_storage_blobs, and pg_search_documents.<br />
-active_storage_attachments and active_storage_blobs is represented by single column "picture" in profiles table. Actually active_storage_attachments table has the information of the table which needs a file attached as a column and the information of actual file description. active_storage_blobs table has the actual file description such as file name, content_type, size, checksume, etc.<br />
+Almost every table matches the ERD except active_storage_attachments, active_storage_blobs, and pg_search_documents which are automatically made by rails installation.<br />
+active_storage_attachments and active_storage_blobs is represented by single column "picture" in profiles table. Actually active_storage_attachments table has the link of the table which needs a file attached as a column and the link of active_storage_blobs table. active_storage_blobs table has the actual file description such as file name, content_type, size, checksume, etc.<br />
 pg_search_documents table holds data which are used for searching keywords. Whenever a profiles, tutor_sessions, or comments record is created, predefined column's text part, such as body column in comments table and title, description, place, category, and address in tutor_sessions table, will be piled up into pg_search_documents table so that pg_search_documents can be used for searching keywords.
 
 ```ruby

@@ -1,9 +1,11 @@
 import { Controller } from "stimulus"
+import axios from 'axios';
 
 export default class extends Controller {
   static targets = ["place","wrappedWithContainer", "entireLayout", "confUrlWrapper", "addressWrapper", "mapWrapper",
                     "category", "headerImg", "imageShown",
-                    "address", "map", "latitude", "longitude"
+                    "address", "map", "latitude", "longitude",
+                    "searchString", "imgList1", "imgList2", "imgList3", "imgList4", "imgList5"
                   ]
 
   connect() {
@@ -13,6 +15,50 @@ export default class extends Controller {
       this.initializeMap()
     }
   }
+
+  handle_search(e) {
+    if (e.key == "Enter") {
+      e.preventDefault()
+    }
+
+    const name = this.searchStringTarget.value.replace(" ", "%20");
+    if (name === "")
+      return
+    const url = `https://api.unsplash.com/search/photos?page=1&query=${name}&client_id=uqXZu7wXziL89doiBnoz0yUFShlmZY4rnvn4VMHWx0s&orientation=landscape`;
+
+    axios.get(url)
+      .then(res => {
+        const { results, total } = res.data;
+        this.imgList1Target.src = results[0].urls.small;
+        this.imgList2Target.src = results[1].urls.small;
+        this.imgList3Target.src = results[2].urls.small;
+        this.imgList4Target.src = results[3].urls.small;
+        this.imgList5Target.src = results[4].urls.small;
+    });
+  }
+
+  handle_select_img(e, element) {
+    e.preventDefault()
+    this.headerImgTarget.value = element.src
+    this.imageShownTarget.src = element.src
+  }
+
+  handle_select_img_1(e) {
+    this.handle_select_img(e, this.imgList1Target)
+  }
+  handle_select_img_2(e) {
+    this.handle_select_img(e, this.imgList2Target)
+  }
+  handle_select_img_3(e) {
+    this.handle_select_img(e, this.imgList3Target)
+  }
+  handle_select_img_4(e) {
+    this.handle_select_img(e, this.imgList4Target)
+  }
+  handle_select_img_5(e) {
+    this.handle_select_img(e, this.imgList5Target)
+  }
+
 
   // when place value is changed, the existence of video conference element and address element should switched, and map should be also on and off
   handle_change_place() {
@@ -34,6 +80,12 @@ export default class extends Controller {
 
   // when category is changed, a default header image will be changed
   handle_change_category() {
+    let strImg = this.headerImgTarget.value
+    if (strImg !== null && strImg != "" && strImg.startsWith("http")) {
+      this.imageShownTarget.src = this.headerImgTarget.value
+      return
+    }
+
     switch(this.categoryTarget.value) {
       case 'web_app':
         this.headerImgTarget.value = "header_img_web_app.png"
