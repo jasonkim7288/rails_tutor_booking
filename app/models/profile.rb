@@ -1,12 +1,3 @@
-class PhoneNumberValidator < ActiveModel::Validator
-  def validate(record)
-    if record.phone_number && record.phone_number != "" &&
-      (record.phone_number.length > 20 || TelephoneNumber.invalid?(record.phone_number, :AU, [:mobile, :fixed_line]))
-      record.errors[:phone_number] << 'has an invalid format of Australia'
-    end
-  end
-end
-
 class Profile < ApplicationRecord
   # define enum
   # The default value is :type_initial which is 0. :type_initial uses Initaial Avatar URL, and :type_picture uses file
@@ -20,10 +11,7 @@ class Profile < ApplicationRecord
   # validation
   validates :name, length: {maximum: 100}
   validates :about_me, length: {maximum: 3000}
-
-  # custom validation to validate Australia phone number
-  include ActiveModel::Validations
-  validates_with PhoneNumberValidator
+  validate :validate_phone_number
 
   # for keyword search
   include PgSearch::Model
@@ -43,4 +31,13 @@ class Profile < ApplicationRecord
       return "https://avatar.oxro.io/avatar.svg?name=#{user_name}&length=2"
     end
   end
+
+  # custom validation to validate Australia phone number
+  private
+    def validate_phone_number
+      if self.phone_number && self.phone_number != "" &&
+        (self.phone_number.length > 20 || TelephoneNumber.invalid?(self.phone_number, :AU, [:mobile, :fixed_line]))
+        self.errors[:phone_number] << 'has an invalid format of Australia'
+      end
+    end
 end
