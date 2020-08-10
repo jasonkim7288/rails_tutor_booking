@@ -29,6 +29,8 @@
         btn_color, icon = "", ""
       end
     %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+    <%= link_to omniauth_authorize_path(resource_name, provider), type: "button", class: "btn btn-block my-2 #{btn_color} text-white" do %>
+            <i class="fab <%= icon %> mr-2"></i><%= "Continue with #{provider_name}" %>
+    <% end %>
   <% end %>
 <% end %>
