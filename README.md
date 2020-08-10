@@ -122,7 +122,7 @@ Users can be both students and tutors
 - As a user, I want to see a summary of tutoring information on the list, so I can check which tutor session suits me or edit my tutor session.
 - As a user, I want to see detailed information about each tutor session, so I can decide if I am going to attend it, or I can edit the tutoring information if I own it.
 - As a user, I want to search for tutor sessions by keyword, place, or category, so I can filter the tutor session that I would like to attend.
-- As a user, I want to comment for each tutor session, so I can ask or answer some questions about this tutor session.
+- As a user, I want to comment on each tutor session, so I can ask or answer some questions about this tutor session.
 ## Tutors
 - As a tutor, I want to create a tutor session, so I can organise the tutor session.
 - As a tutor, I want to edit the tutor session I made, so I can let the students know if there are some changes to the tutor.
@@ -167,10 +167,10 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 User is one of the most important components and can be defined as a student or a tutor who signed up. This user component can be used to identify the owner of tutor sessions, to maintain the tutor sessions to attend, to identify the writer of each comment on a specific tutor session.
 
 ### Tutor session
-Tutor session is also the main component which is in charge of booking the appointment between a tutor and students. It holds most of the information about booking such as who is presenting, what the tutor is presenting, when it is taking place, where it is takeing place, why the tutor is presenting, and how the tutor is presenting. Based on this component, users(students) can decide whether they are attending this tutor session or not.
+Tutor session is also the main component which is in charge of booking the appointment between a tutor and students. It holds most of the information about booking such as who is presenting, what the tutor is presenting, when it is taking place, where it is taking place, why the tutor is presenting, and how the tutor is presenting. Based on this component, users(students) can decide whether they are attending this tutor session or not.
 
 ### Map
-Map is the component that visually displays where the tutor sessions take place. Creating or editing a new tutor session and displaying the tutor session detail are where the map component comes into play. It shows the exact place dynamically with Google Maps UI which is quite familiar to most of users.
+Map is the component that visually displays where the tutor sessions take place. Creating a new tutor session, editing the existing tutor session, and displaying the tutor session detail are where the map component comes into play. It shows the exact place dynamically with Google Maps UI which is quite familiar to most users.
 
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -224,8 +224,8 @@ Comment can be updated and deleted by only the User who created it.
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Database relations
-Tutor Booking app uses PostgreSQL as the Relational DataBase Management System(RDBMS) to store all the records. users table and tutor_sessions table are the main tables which play important roles. Any registered user can be a student and also a tutor, so one user record will be created after signing up, and a tutor_session record is ready to be created afterwards which means each tutor_session record belongs to a user record that refers to a tutor. Just after signing up, one profile record will be created and link to the user record. Once a user logged in, he or she can attend any existing tutor session which means that a attendance record will be created and link to the current user record and the tutor_session record. Whenever the user makes a comment on a tutor session, a comment record will be created with it body text and link to the user record and the tutor_session record.<br />
-When a user record is deleted, all the related tutor_session records, comment records, and attendance records will be deleted as well. When a tutor_session record is deleted, all the related comment records and attendance records will be also deleted .
+Tutor Booking app uses PostgreSQL as the Relational DataBase Management System(RDBMS) to store all the records. users table and tutor_sessions table are the main tables which play important roles. Any registered user can be a student and also a tutor, so one user record will be created after signing up, and a tutor_session record is ready to be created afterward which means each tutor_session record belongs to a user record that refers to a tutor. Just after signing up, one profile record will be created and link to the user record. Once a user logged in, he or she can attend any existing tutor session which means that an attendance record will be created and link to the current user record and the tutor_session record. Whenever the user makes a comment on a tutor session, a comment record will be created with it body text and link to the user record and the tutor_session record.<br />
+When a user record is deleted, all the related tutor_session records, comment records, and attendance records will be deleted as well. When a tutor_session record is deleted, all the related comment records and attendance records will be also deleted.
 
 [Go back](#table-of-contents)<br /><br /><br />
 
@@ -233,14 +233,14 @@ When a user record is deleted, all the related tutor_session records, comment re
 Almost every table matches the ERD except for active_storage_attachments, active_storage_blobs, and pg_search_documents.<br />
 
 ### users
-users table is auto generated by devise gem installation process. There are email, encrypted password, and reset password token columns by default. role column is added for authorization. This table maintains every user's basic information securely.
+users table is auto-generated by devise gem installation process. There are email, encrypted password, and reset password token columns by default. role column is added for authorization. This table maintains every user's basic information securely.
 
 ### profiles
-profiles table is for storing additional information about users table such as each user's full name, phone number, explaination of user(about_me) and referting to the one user. It has also img_type which indicates whether the profile image is from Initial Avatar icon or picture file attached in AWS S3 bucket
+profiles table is for storing additional information about users table such as each user's full name, phone number, explanation of the user(about_me) and referring to the one user. It has also img_type which indicates whether the profile image is from Initial Avatar icon or picture file attached in AWS S3 bucket
 
 ### tutor_sessions
 tutor_sessions table is for storing tutor session details and linking to the user who created this tutor session. The details include a title, description,
-place type, category, start/end datetime, video conference URL if the place type is online, address if the place type is offline, and the maximum number of student which is 1 ~ 20.
+place type, category, start/end datetime, video conference URL if the place type is online, address if the place type is offline, and the maximum number of the student which is 1 ~ 20.
 
 ### attendances
 attendances table is a join table for storing who decided to attend which tutor session
@@ -252,7 +252,7 @@ comments table is also a join table with comment body text, and this table store
 active_storage_attachments and active_storage_blobs are represented by a single column "picture" in the profiles table. Actually, active_storage_attachments table has the information of the table which needs a file attached as a column and the information of actual file description. active_storage_blobs table has the actual file description such as file name, content_type, size, checksum, etc.
 
 ### pg_search_documents
-pg_search_documents table holds data which are used for searching keywords. Whenever a profiles, tutor_sessions, or comments record is created, predefined column's text part, such as body column in comments table and title, description, place, category, and address in tutor_sessions table, will be piled up into pg_search_documents table so that pg_search_documents can be used for searching keywords.
+pg_search_documents table holds data which are used for searching keywords. Whenever a profile, a tutor_session, or a comment record is created, predefined column's text part, such as body column in comments table and title, description, place, category, and address in tutor_sessions table, will be piled up into pg_search_documents table so that pg_search_documents can be used for searching keywords.
 
 
 [Go back](#table-of-contents)<br /><br /><br />
