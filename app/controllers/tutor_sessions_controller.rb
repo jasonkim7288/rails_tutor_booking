@@ -77,15 +77,23 @@ class TutorSessionsController < ApplicationController
 
   # when a student hit attend
   def attend
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+    p @tutor_session.start_datetime
+    p Time.zone.now
+    p @tutor_session.start_datetime.after?(Time.zone.now)
+
     # if the attendance is full, no more attendance
     if @tutor_session.attendances.length >= @tutor_session.max_students_num
       redirect_to @tutor_session, alert: 'This tutor session has been fully booked'
     # check if the current user already attends this tutor session
     elsif Attendance.find_by(tutor_session_id: @tutor_session.id, user_id: current_user.id)
       redirect_to @tutor_session, alert: 'You have already booked this tutor session.'
-    # tutor cannot book
+    # tutor cannot book his/her own tutor session
     elsif current_user.id == @tutor_session.user_id
       redirect_to @tutor_session, alert: 'The tutor cannot book the own tutor session.'
+    # if the student tries to attend the tutor session which has already been started
+    elsif @tutor_session.start_datetime.before?(Time.zone.now)
+      redirect_to @tutor_session, alert: 'The tutor session has been already started.'
     else
       if Attendance.create(tutor_session: @tutor_session, user: current_user)
         redirect_to @tutor_session, notice: 'You are attending this tutor session.'

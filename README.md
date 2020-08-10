@@ -117,16 +117,16 @@ Tutor Booking app is for any student who wants to be a web/mobile app developer 
 Users can be both students and tutors
 
 ## Users (Both students and tutors)
-- As a user, I want to sign up and log in, so I can create or attend tutoring sessions.
+- As a user, I want to sign up and log in, so I can create or attend tutor sessions.
 - As a user, I want to log out, change password, and cancel my account, so I can keep my account secure.
-- As a user, I want to see a summary of tutoring information on the list, so I can check which tutoring session suits me or edit my tutoring session.
-- As a user, I want to see detailed information about each tutoring session, so I can decide if I am going to attend it, or I can edit the tutoring information if I own it.
-- As a user, I want to search for tutoring sessions by keyword, place, or category, so I can filter the tutor session that I would like to attend.
-- As a user, I want to comment for each tutoring session, so I can ask or answer some questions about this tutoring session.
+- As a user, I want to see a summary of tutoring information on the list, so I can check which tutor session suits me or edit my tutor session.
+- As a user, I want to see detailed information about each tutor session, so I can decide if I am going to attend it, or I can edit the tutoring information if I own it.
+- As a user, I want to search for tutor sessions by keyword, place, or category, so I can filter the tutor session that I would like to attend.
+- As a user, I want to comment for each tutor session, so I can ask or answer some questions about this tutor session.
 ## Tutors
-- As a tutor, I want to create a tutoring session, so I can organise the tutoring session.
-- As a tutor, I want to edit the tutoring session I made, so I can let the students know if there are some changes to the tutoring.
-- As a tutor, I want to see all the tutoring sessions I made, so I can keep track of them.
+- As a tutor, I want to create a tutor session, so I can organise the tutor session.
+- As a tutor, I want to edit the tutor session I made, so I can let the students know if there are some changes to the tutor.
+- As a tutor, I want to see all the tutor sessions I made, so I can keep track of them.
 ## Students
 - As a student, I want to be able to attend each tutor session, so I can participate in this tutor session.
 - As a student, I want to see all the tutor sessions that I have decided to attend, so I can check the schedule and cancel the tutor session.
@@ -163,6 +163,14 @@ Download <a href="docs/DevTutorBookingApp_Desktop.bmpr"> Balsamiq </a> or <a hre
 [Go back](#table-of-contents)<br /><br /><br />
 
 # High-level components
+### User
+User is one of the most important components and can be defined as a student or a tutor who signed up. This user component can be used to identify the owner of tutor sessions, to maintain the tutor sessions to attend, to identify the writer of each comment on a specific tutor session.
+
+### Tutor session
+Tutor session is also the main component which is in charge of booking the appointment between a tutor and students. It holds most of the information about booking such as who is presenting, what the tutor is presenting, when it is taking place, where it is takeing place, why the tutor is presenting, and how the tutor is presenting. Based on this component, users(students) can decide whether they are attending this tutor session or not.
+
+### Map
+Map is the component that visually displays where the tutor sessions take place. Creating or editing a new tutor session and displaying the tutor session detail are where the map component comes into play. It shows the exact place dynamically with Google Maps UI which is quite familiar to most of users.
 
 
 [Go back](#table-of-contents)<br /><br /><br />
@@ -216,9 +224,8 @@ Comment can be updated and deleted by only the User who created it.
 [Go back](#table-of-contents)<br /><br /><br />
 
 # Database relations
-Tutor Booking app uses PostgreSQL as the Relational DataBase Management System(RDBMS) to store all the records. users table and tutor_sessions table are the main tables which play important roles. Any registered user can be a student and also a tutor, so after sign up one record of users table will be created, and a record of tutor_sessions table is ready to be created afterwards which means each tutor_sessions record belongs to a record of users table that refer to a tutor. Once a user logged in, he or she can attend any existing tutoring session
-
-
+Tutor Booking app uses PostgreSQL as the Relational DataBase Management System(RDBMS) to store all the records. users table and tutor_sessions table are the main tables which play important roles. Any registered user can be a student and also a tutor, so one user record will be created after signing up, and a tutor_session record is ready to be created afterwards which means each tutor_session record belongs to a user record that refers to a tutor. Just after signing up, one profile record will be created and link to the user record. Once a user logged in, he or she can attend any existing tutor session which means that a attendance record will be created and link to the current user record and the tutor_session record. Whenever the user makes a comment on a tutor session, a comment record will be created with it body text and link to the user record and the tutor_session record.<br />
+When a user record is deleted, all the related tutor_session records, comment records, and attendance records will be deleted as well. When a tutor_session record is deleted, all the related comment records and attendance records will be also deleted .
 
 [Go back](#table-of-contents)<br /><br /><br />
 
@@ -232,11 +239,11 @@ users table is auto generated by devise gem installation process. There are emai
 profiles table is for storing additional information about users table such as each user's full name, phone number, explaination of user(about_me) and referting to the one user. It has also img_type which indicates whether the profile image is from Initial Avatar icon or picture file attached in AWS S3 bucket
 
 ### tutor_sessions
-tutor_sessions table is for storing tutoring session details and linking to the user who created this tutoring session. The details include a title, description,
+tutor_sessions table is for storing tutor session details and linking to the user who created this tutor session. The details include a title, description,
 place type, category, start/end datetime, video conference URL if the place type is online, address if the place type is offline, and the maximum number of student which is 1 ~ 20.
 
 ### attendances
-attendances table is a join table for storing who decided to attend which tutoring session
+attendances table is a join table for storing who decided to attend which tutor session
 
 ### comments
 comments table is also a join table with comment body text, and this table stores the link to the user who made and the link to the tutor_session which has this comment.
@@ -262,11 +269,11 @@ During week 1, I finished drawing wireframes for 3 different screen sizes and an
 ![Week 1](docs/2020-07-26_trello_progress.png)
 
 ### Week 2
-During week 2, I finished all the MVP which was the authentication of users, CRUD operation of tutoring sessions, and an attending function for students.<br />
+During week 2, I finished all the MVP which was the authentication of users, CRUD operation of tutor sessions, and an attending function for students.<br />
 ![Week 2](docs/2020-08-02_trello_progress.png)
 
 ### Week 3
-During week 3, I finished searching and filtering function of tutoring sessions, CRUD operation of comments, my attend list display, and my tutor sessions display.
+During week 3, I finished searching and filtering function of tutor sessions, CRUD operation of comments, my attend list display, and my tutor sessions display.
 ![Week 3](docs/2020-08-08_trello_progress.png)
 
 
