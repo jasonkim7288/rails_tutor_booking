@@ -1,29 +1,3 @@
-class CustomValidator < ActiveModel::Validator
-  def validate(record)
-    # check if start_datetime has an valid format
-    if ((record.start_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
-      record.errors[:start_datatime] << 'has an invalid format'
-    end
-    # check if end_datetime has an valid format
-    if ((record.end_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
-      record.errors[:end_datatime] << 'has an invalid format'
-    end
-
-    if record.start_datetime
-      # check if start_datetime is later than end_datetime
-      if record.end_datetime && record.end_datetime.before?(record.start_datetime)
-        record.errors[:end_datatime] << 'must be later than the start date/time'
-      end
-      # check if start_datetime is earler than tomorrow's beginning of day
-      # if the current datetime is Thu, 06 Aug 2020 21:00:00 AEST +10:00, tomorrow's beginning of day is
-      # Fri, 07 Aug 2020 00:00:00 AEST +10:00, so start_datetime must be after that time
-      if record.start_datetime.before?(Time.zone.tomorrow.beginning_of_day)
-        record.errors[:start_datatime] << 'must be later than today'
-      end
-    end
-  end
-end
-
 class TutorSession < ApplicationRecord
   # define enum before validation to avoid undefined variable error
   # place enum is for storing place info to model or displaying place with a select tag on the tutor booking edit page
@@ -74,8 +48,7 @@ class TutorSession < ApplicationRecord
   validates :max_students_num, presence: true, numericality: {only_integer: true, greater_than: 0, less_than: 21}
 
   # custom validation
-  include ActiveModel::Validations
-  validates_with CustomValidator
+  validate :validate_datetime
 
   # for keyword search
   include PgSearch::Model
@@ -267,6 +240,30 @@ class TutorSession < ApplicationRecord
         return true
       else
         return false
+      end
+    end
+
+    def validate_datetime
+      # check if start_datetime has an valid format
+      if ((self.start_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
+        self.errors[:start_datatime] << 'has an invalid format'
+      end
+      # check if end_datetime has an valid format
+      if ((self.end_datetime.strftime("%d/%m/%Y %l:%M %p") rescue ArgumentError) == ArgumentError)
+        self.errors[:end_datatime] << 'has an invalid format'
+      end
+
+      if self.start_datetime
+        # check if start_datetime is later than end_datetime
+        if self.end_datetime && self.end_datetime.before?(self.start_datetime)
+          self.errors[:end_datatime] << 'must be later than the start date/time'
+        end
+        # check if start_datetime is earler than tomorrow's beginning of day
+        # if the current datetime is Thu, 06 Aug 2020 21:00:00 AEST +10:00, tomorrow's beginning of day is
+        # Fri, 07 Aug 2020 00:00:00 AEST +10:00, so start_datetime must be after that time
+        if self.start_datetime.before?(Time.zone.tomorrow.beginning_of_day)
+          self.errors[:start_datatime] << 'must be later than today'
+        end
       end
     end
 end
