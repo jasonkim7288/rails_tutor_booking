@@ -64,3 +64,7 @@ gem 'pg_search'
 gem 'cancancan'
 
 gem 'telephone_number'
+
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'
