@@ -11,6 +11,8 @@ class Profile < ApplicationRecord
   # validation
   validates :name, length: {maximum: 100}
   validates :about_me, length: {maximum: 3000}
+
+  # custom validation
   validate :validate_phone_number
 
   # for keyword search
