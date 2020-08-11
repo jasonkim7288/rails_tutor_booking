@@ -72,7 +72,7 @@ Rails.application.configure do
     port: 587,
     domain: "mail.google.com",
     user_name: "devtutorbooking",
-    password: Rails.application.credentials.dig(:google, :gmail_secrect_key),
+    password: Rails.application.credentials.dig(:google, :gmail_secret_key),
     authentication: "plain",
     enable_starttls_auto: true
   }
