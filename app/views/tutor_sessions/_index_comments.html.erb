@@ -25,7 +25,7 @@
           </h6>
           <p class="card-text">
             <%# if the comment is edit mode, create a form %>
-            <% if user_signed_in? && current_user.id == comment.user.id && @edit_mode == comment.id %>
+            <% if user_signed_in? && (current_user.id == comment.user.id or current_user.admin?) && @edit_mode == comment.id %>
               <%= form_with model: [tutor_session, comment],
                 data: { reflex: "submit->CommentReflex#update", comment_id: comment.id } do |form|
               %>
@@ -47,7 +47,7 @@
             <% end %>
           </p>
           <%# if user signed in and this comment belongs to the current user, display edit and delete button %>
-          <% if user_signed_in? && current_user.id == comment.user.id %>
+          <% if user_signed_in? && (current_user.id == comment.user.id or current_user.admin?)%>
             <p class="text-right mb-0">
               <% if @edit_mode != comment.id %>
                 <%= link_to "#", data: { reflex: "click->CommentReflex#edit", comment_id: comment.id },
