@@ -209,17 +209,17 @@ Profile has one attaced picture which is related to Active Storage and links to 
 TutorSession belongs to User who created.<br/>
 TutorSession has many Comments which Users have created.<br />
 ### Comment
-Comment belongs to TutorSession<br />
-Comment belongs to User<br />
+Comment belongs to TutorSession.<br />
+Comment belongs to User.<br />
 ### Attendance
-Attendance belongs to TutorSession<br />
-Attendance belongs to User<br />
+Attendance belongs to TutorSession.<br />
+Attendance belongs to User.<br />
 ### Ability
-Ability model defines authorization.
-All Users including guests can read all TutorSessions and Comments
-All Administrators can create, read, update, and delete all TutorSessions and Comments
-TutorSession can be updated and deleted by only the User who created it.
-Comment can be updated and deleted by only the User who created it.
+Ability model defines authorization.<br />
+All Users including guests can read all TutorSessions and Comments.<br />
+All Administrators can create, read, update, and delete all TutorSessions and Comments.<br />
+TutorSession can be updated and deleted by only the User who created it.<br />
+Comment can be updated and deleted by only the User who created it.<br />
 
 [Go back](#table-of-contents)<br /><br /><br />
 
