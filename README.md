@@ -92,7 +92,7 @@ Once a user signs up, it will lead to the edit profile page. The user has 3 choi
 [Go back](#table-of-contents)<br /><br /><br />
 
 ## Target audience
-Tutor Booking app is for any student who wants to be a web/mobile app developer and for any current web/mobile app developer who wants to help students.
+Tutor Booking app is for any student who wants to be a web/mobile app developer and for any current web/mobile app developer who wants to help students. Therefore the target audience can be aspiring web/app developers or even web/app devlopers currently working.
 
 [Go back](#table-of-contents)<br /><br /><br />
 
