@@ -2,8 +2,8 @@
 <div class="<%= card_body %> py-4">
   <p class="<%= card_text %> font-weight-bold text-primary"><%= "#{remained_seats} seats left (out of #{@tutor_session.max_students_num})" %></p>
   <% if user_signed_in? %>
-    <% if current_user.id == @tutor_session.user.id %>
-      <h4 class="<%= card_text %> text-center mb-4">You are the tutor</h4>
+    <% if current_user.id == @tutor_session.user.id  || current_user.admin? %>
+      <h4 class="<%= card_text %> text-center mb-4"><%= "You are the #{current_user.admin? ? "admin" : "tutor"}"%></h4>
       <%#= link_to 'Notice to students', "#", class: "btn btn-primary btn-block" %>
       <%= link_to 'Edit', edit_tutor_session_path(@tutor_session), class: "btn btn-success btn-block" %>
       <%= link_to 'Remove', @tutor_session, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger btn-block" %>
